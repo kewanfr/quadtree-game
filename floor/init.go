@@ -30,10 +30,12 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 	// TODO
 	var err error
 
+	floorContent = [][]int{}
+
 	floorFile, err := os.Open(fileName)
 	
 	if err != nil {
-		return floorContent
+		return nil
 	}
 
 	var scanner *bufio.Scanner  = bufio.NewScanner(floorFile)

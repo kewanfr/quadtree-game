@@ -1,7 +1,6 @@
 package floor
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -20,10 +19,8 @@ func TestReadExemple(t *testing.T) {
 }
 
 func TestReadEmpty(t *testing.T) {
-	var want [][]int = [][]int{}
+	var want [][]int = make([][]int, 0)
 	var result = readFloorFromFile("../tests/emptyFile")
-
-	fmt.Println(result)
 
 	if result == nil {
 		t.Error("Erreur: result is nil")
