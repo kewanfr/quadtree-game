@@ -18,9 +18,9 @@ type Floor struct {
 
 // types d'affichage du terrain disponibles
 const (
-	GridFloor int = iota
-	FromFileFloor
-	QuadTreeFloor
+	GridFloor int = iota // = 0
+	FromFileFloor // = 1
+	QuadTreeFloor // 2
 )
 
 // GetHeight retourne la hauteur (en cases) du terrain
