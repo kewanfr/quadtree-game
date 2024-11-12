@@ -1,6 +1,10 @@
 package floor
 
 import (
+	"bufio"
+	"os"
+	"strconv"
+
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
 )
@@ -24,5 +28,23 @@ func (f *Floor) Init() {
 // pour le stocker dans un tableau
 func readFloorFromFile(fileName string) (floorContent [][]int) {
 	// TODO
-	return
+	file, _ := os.Open("../floor-files/"+fileName)
+	
+
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan(){
+		line := scanner.Text()
+		var lineArr []int
+		
+		for _, r := range line {
+			fInt, _ :=  strconv.Atoi(string(r))
+			lineArr = append(lineArr, fInt)
+		}
+
+		floorContent = append(floorContent, lineArr)
+
+	}
+
+	return floorContent
 }
