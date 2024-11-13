@@ -42,14 +42,23 @@ func (f *Floor) updateGridFloor(topLeftX, topLeftY int) {
 }
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
-//
-// la version actuelle recopie fullContent dans content, ce qui n'est pas
-// le comportement attendu dans le rendu du projet
 func (f *Floor) updateFromFileFloor(topLeftX, topLeftY int) {
+
+	f.content = make([][]int, configuration.Global.NumTileY)
+	for i := range f.content {
+		f.content[i] = make([]int, configuration.Global.NumTileX)
+	}
+
 	for y := 0; y < len(f.content); y++ {
 		for x := 0; x < len(f.content[y]); x++ {
-			if y < len(f.fullContent) && x < len(f.fullContent[y]) {
-				f.content[y][x] = f.fullContent[y][x]
+			// Calculer les coordonnées dans fullContent
+			var fullContentX int = topLeftX + x
+			var fullContentY int = topLeftY + y
+
+			// Vérifier si les coordonnées sont dans les limites de fullContent (évite que le programme se chie dessus avec des sizes de tile trop grandes)
+			if fullContentY >= 0 && fullContentY < len(f.fullContent) &&
+				fullContentX >= 0 && fullContentX < len(f.fullContent[fullContentY]) {
+				f.content[y][x] = f.fullContent[fullContentY][fullContentX]
 			} else {
 				f.content[y][x] = -1
 			}
