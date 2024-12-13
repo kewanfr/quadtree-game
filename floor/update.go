@@ -55,12 +55,12 @@ func (f *Floor) updateFromFileFloor(topLeftX, topLeftY int) {
 			var fullContentX int = topLeftX + x
 			var fullContentY int = topLeftY + y
 
-			// Vérifier si les coordonnées sont dans les limites de fullContent (évite que le programme se chie dessus avec des sizes de tile trop grandes)
+			// Vérifier si les coordonnées sont dans les limites de fullContent (évite que le programme crash avec des sizes de tile trop grandes)
 			if fullContentY >= 0 && fullContentY < len(f.fullContent) &&
 				fullContentX >= 0 && fullContentX < len(f.fullContent[fullContentY]) {
 				f.content[y][x] = f.fullContent[fullContentY][fullContentX]
 			} else {
-				f.content[y][x] = -1
+				f.content[y][x] = -1 // indique le manque de sol, bloque le bonhomme
 			}
 		}
 	}
