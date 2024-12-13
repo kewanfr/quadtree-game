@@ -16,8 +16,20 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	return
 }
 
-// func recursive pour faire les node
 func makeNode(floorContent [][]int, startX, startY, width, height int) *node {
+
+	// BIEN CHECK sinon ça marche pas
+	if width <= 0 || height <= 0 {
+		return &node{
+			topLeftX: startX,
+			topLeftY: startY,
+			width:    width,
+			height:   height,
+			content:  floorContent[startY][startX],
+			isLeaf:   true,
+		}
+	}
+	// de même
 	if width == 1 && height == 1 {
 		return &node{
 			topLeftX: startX,
