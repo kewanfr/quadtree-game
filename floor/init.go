@@ -28,10 +28,11 @@ func (f *Floor) Init() {
 // pour le stocker dans un tableau
 func readFloorFromFile(fileName string) (floorContent [][]int) {
 	// TODO
-	var err error
+	var err error // Stocke l'erreur potentielle
 
 	floorContent = [][]int{}
 
+	// Ouvre le fichier
 	floorFile, err := os.Open(fileName)
 	
 	if err != nil {
@@ -40,18 +41,22 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 
 	var scanner *bufio.Scanner  = bufio.NewScanner(floorFile)
 
+	// On scanne le fichier ligne par ligne
 	for scanner.Scan(){
 		line := scanner.Text()
 		var lineArr []int
 		
+		// On itère sur chaque élément de la ligne
 		for _, r := range line {
 			elInt, err :=  strconv.Atoi(string(r))
 			if err != nil {
 				return floorContent
 			}
+			// On l'ajoute à la slice
 			lineArr = append(lineArr, elInt)
 		}
 
+		// On ajoute la slice au tableau
 		floorContent = append(floorContent, lineArr)
 
 	}
