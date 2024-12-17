@@ -42,5 +42,17 @@ func (n *node) contentAt(x, y int) int {
 // un terrain dont la case le plus en haut à gauche a pour coordonnées
 // (topLeftX, topLeftY)) à partir du qadtree q.
 func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
-	// TODO
+	// Pour chaque pixel du contentHolder que l'on veut remplir
+	for y := 0; y < len(contentHolder); y++ {
+		for x := 0; x < len(contentHolder[y]); x++ {
+
+			// On calcule la coordonnée du pixel par rapport au content global
+			globalX := topLeftX + x
+			globalY := topLeftY + y
+
+			// On cherche le contenu dans le quadtree aux coordonnées globalX et globalY
+			contentHolder[y][x] = q.root.contentAt(globalX, globalY)
+
+		}
+	}
 }
