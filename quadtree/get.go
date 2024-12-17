@@ -1,4 +1,5 @@
 package quadtree
+
 func (n *node) contentAt(x, y int) int {
 	/*
 	A partir d'un node, renvoie le contenu aux coordonnées (x, y)
@@ -6,19 +7,30 @@ func (n *node) contentAt(x, y int) int {
 	// Si la node est nil, il n'y a pas de sous-quadtree, donc on renvoie -1
 	if n == nil {
 		return -1
+	}
+    
+	// On vérifie si (x, y) est en dehors des bornes (+ la taille de la node )
 	if x < n.topLeftX || x >= n.topLeftX+n.width ||
 	   y < n.topLeftY || y >= n.topLeftY+n.height {
 		return -1
 	}
+    
+	// Si c’est une feuille, on renvoie directement le contenu
 	if n.isLeaf {
 		return n.content
 	}
+    
+	// SI c’est un noeud interne : on cherche (x, y)
+	// On calcule la taille de la moitié de la node
 	halfW := n.width / 2
 	halfH := n.height / 2
+
+	// On calcule les coordonnées du point
 	splitX := n.topLeftX + halfW
 	splitY := n.topLeftY + halfH
 
 	if y < splitY {
+		// Si on est dans la partie haute de la node
 		if x < splitX {
 			// Partie Gauche
 			return n.topLeftNode.contentAt(x, y)
