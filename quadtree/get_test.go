@@ -1,6 +1,8 @@
 package quadtree
 
-import "testing"
+import (
+	"testing"
+)
 
 type requestedWindow struct {
 	topLeftX, topLeftY int
@@ -372,6 +374,23 @@ func TestGetContentReduction(t *testing.T) {
 			}
 		}
 
+	}
+
+}
+
+func TestGetContentTreeVide(t *testing.T) {
+
+	tree := Quadtree{width: 8, height: 8}
+	
+
+	expectedResult := make([][]int, 8)
+	res := make([][]int, 8)
+
+	tree.GetContent(0, 0, res)
+
+	if !equalContent(expectedResult, res) {
+		treeAsText := tree.GetAsText("fullContent")
+		t.Fatalf("Le résultat attendu pour le quadtree \n%s\n avec (topLeftX, topLeftY) = (0, 0) était le tableau %v mais le résultat retourné par GetContent est %v", treeAsText, expectedResult, res)
 	}
 
 }
