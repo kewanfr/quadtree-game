@@ -23,12 +23,17 @@ func (n *node) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 		// En vérifiant que les coordonnées du noeud sont bien dans le terrain à remplir
 
 
+		// Reduction: on itère sur la taille du noeud pour remplir les valeurs
+		// (Quand le noeud a une taille supérieure à 1, il y a pluiseurs cases à remplir)
+		for y := 0; y < n.height; y++ {
+			for x := 0; x < n.width; x++ {
 
-
-		
-		if n.topLeftY >= topLeftY && n.topLeftY < topLeftY+len(contentHolder) &&
-			n.topLeftX >= topLeftX && n.topLeftX < topLeftX+len(contentHolder[0]) {
-			contentHolder[n.topLeftY-topLeftY][n.topLeftX-topLeftX] = n.content
+				// On vérifie que les coordonnées du noeud sont bien dans le terrain à remplir
+				if n.topLeftY+y >= topLeftY && n.topLeftY+y < topLeftY+len(contentHolder) &&
+					n.topLeftX+x >= topLeftX && n.topLeftX+x < topLeftX+len(contentHolder[0]) {
+					contentHolder[n.topLeftY+y-topLeftY][n.topLeftX+x-topLeftX] = n.content
+				}
+			}
 		}
 
 		
