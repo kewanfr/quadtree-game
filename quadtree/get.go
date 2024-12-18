@@ -1,14 +1,9 @@
 package quadtree
 
-import (
-	"fmt"
-)
-
 func (n *node) contentAt(x, y int) int {
 
 	// Si c’est une feuille, on renvoie directement le contenu
 	if n.isLeaf {
-		fmt.Println(x, y, n.content)
 		return n.content
 	}
 
@@ -41,14 +36,7 @@ func (n *node) contentAt(x, y int) int {
 // un terrain dont la case le plus en haut à gauche a pour coordonnées
 // (topLeftX, topLeftY)) à partir du qadtree q.
 func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
-	// Pour chaque pixel du contentHolder que l'on veut remplir
 
-	// contentHolder = make([][]int, configuration.Global.NumTileY)
-	// for i := range contentHolder {
-	// 	contentHolder[i] = make([]int, configuration.Global.NumTileX)
-	// }
-
-	// fmt.Println(len(contentHolder), len(contentHolder[0]), configuration.Global.NumTileY, configuration.Global.NumTileX)
 
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {
@@ -63,7 +51,6 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 				contentHolder[y][x] = q.root.contentAt(globalX, globalY)
 			}
 
-			// On cherche le contenu dans le quadtree aux coordonnées globalX et globalY
 
 		}
 	}
