@@ -1,60 +1,61 @@
 package quadtree
 
 /**
-contentAt retourne le contenu de la node dans le quadtree, à la position (x, y).
+GetContent sur un noeud remplit le tableau contentHolder (le terrain représenté par le quadtree)
+à partir du contenu d'un noeud. Si le noeud est une feuille, on remplit le tableau avec la valeur,
+sinon on appelle de façon récursive GetContent sur les 4 sous-noeuds.
 
 Entrées:
-- x, y: les coordonnées du point dont on veut connaître le contenu.
+- topLeftX, topLeftY: les coordonnées du point le plus en haut à gauche du terrain à remplir (par rapport au content global)
+- contentHolder: le tableau à remplir avec le contenu du noeud
 
 Sorties:
-- le contenu de la node à la position (x, y).
-
-Si la node est une feuille, le contenu est directement renvoyé.
-Sinon, on regarde dans quelle partie de la node se trouve le point (x, y) (en haut, en bas, à gauche, à droite)
-et on appelle la fonction de manière récursive sur la sous-node.
+	Aucune, le tableau contentHolder est modifié en place.
 **/
-func (n *node) contentAt(x, y int) int {
+func (n *node) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
+    if n == nil {
+        return
+    }
 
-	// Si la node est nulle ou si le point qu'on cherche est en dehors de la node
-	// (on calcule à partir des coordonnées de la node + sa taille)
-	if n == nil || (x < n.topLeftX || x >= n.topLeftX+n.width || y < n.topLeftY || y >= n.topLeftY+n.height)  {
-		return -1
-	}
-	// Si c’est une feuille, on renvoie directement le contenu
-	if n.isLeaf {
-		return n.content
-	}
+    // Si le noeud est une feuille
+    if n.isLeaf {
+		// On remplit le tableau contentHolder avec la valeur du noeud
+		// En vérifiant que les coordonnées du noeud sont bien dans le terrain à remplir
 
 	// On calcule les coordonnées du point auquel on sépare la node
 	splitX := n.topLeftX + n.width / 2
-	splitY := n.topLeftY + n.height / 2
-
-	// On cherche la partie dans lequel est le point qu'on cherche
-	if y < splitY {
+		if n.topLeftY >= topLeftY && n.topLeftY < topLeftY+len(contentHolder) &&
+			n.topLeftX >= topLeftX && n.topLeftX < topLeftX+len(contentHolder[0]) {
+			contentHolder[n.topLeftY-topLeftY][n.topLeftX-topLeftX] = n.content
+		}
 		// Si le point à trouver est dans la partie haute
 		if x < splitX {
-			// Partie Gauche
-			return n.topLeftNode.contentAt(x, y)
+        return
+    }
 		} else {
-			// Partie droite
-			return n.topRightNode.contentAt(x, y)
-		}
-	} else {
-		// Si le point à trouver est dans la partie basse du quadtree
-		if x < splitX { 
-			// partie gauche
-			return n.bottomLeftNode.contentAt(x, y)
-		} else {
-			//partie droite
-			return n.bottomRightNode.contentAt(x, y)
-		}
-	}
+    // Si le noeud n'est pas une feuille
+    if n.topLeftNode != nil {
+        n.topLeftNode.GetContent(topLeftX, topLeftY, contentHolder)
+    }
+    if n.topRightNode != nil {
+        n.topRightNode.GetContent(topLeftX, topLeftY, contentHolder)
+    }
+    if n.bottomLeftNode != nil {
+        n.bottomLeftNode.GetContent(topLeftX, topLeftY, contentHolder)
+    }
+    if n.bottomRightNode != nil {
+        n.bottomRightNode.GetContent(topLeftX, topLeftY, contentHolder)
+    }
 }
 
 // GetContent remplit le tableau contentHolder (qui représente
 // un terrain dont la case le plus en haut à gauche a pour coordonnées
 // (topLeftX, topLeftY)) à partir du qadtree q.
 /**
+
+GetContent sur un quadtree remplit le tableau contentHolder (le terrain représenté par le quadtree) à partir du contenu du quadtree.
+Si le quadtree est vide, on ne fait rien.
+Sinon, on appelle la méthode GetContent sur le noeud racine.
 
 Entrées:
 - topLeftX, topLeftY: les coordonnées du point le plus en haut à gauche du terrain à remplir (par rapport au content global)
@@ -66,24 +67,24 @@ Sorties:
 **/
 func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 
-
-	// On itère sur chaque pixel du terrain contentHolder
-	for y := 0; y < len(contentHolder); y++ {
-		for x := 0; x < len(contentHolder[y]); x++ {
-
-			// On calcule la coordonnée du pixel par rapport au content global 
-			globalX := topLeftX + x
-			globalY := topLeftY + y
-
-			// Si le point est en dehors du quadtree, on met -1 (donc un point hors du terrain, l'utilisateur ne peut pas y aller)
-			if q.root == nil || (globalX < q.root.topLeftX || globalX >= q.root.topLeftX+q.root.width || globalY < q.root.topLeftY || globalY >= q.root.topLeftY+q.root.height)  {
-				contentHolder[y][x] = -1 
-			}else {
-				// Sinon, on définit le contenu du pixel en recherchant sa valeur dans le quadtree
-				contentHolder[y][x] = q.root.contentAt(globalX, globalY)
-			}
+	// On vérifie si le quadtree est vide
+	if q.root == nil {
+		return
+	}
 
 
+	// On remplit le quadtree avec -1
+	// pour signifier que le terrain est vide
+	for i := 0; i < len(contentHolder); i++ {
+		for j := 0; j < len(contentHolder[i]); j++ {
+			contentHolder[i][j] = -1
 		}
 	}
+
+
+	// On appelle la méthode GetContent du noeud racine
+	// avec les coordonnées du point le plus en haut à gauche du terrain à remplir
+	// et le tableau à remplir
+	q.root.GetContent(topLeftX, topLeftY, contentHolder)
+
 }
