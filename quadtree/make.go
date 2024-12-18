@@ -13,13 +13,11 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	q.height = height
 	q.root = makeNode(floorContent, 0, 0, width, height)
 
-	return
+	return q
 }
 
 func makeNode(floorContent [][]int, startX, startY, width, height int) *node {
-
-	// BIEN CHECK sinon ça marche pas
-	if width <= 0 || height <= 0 {
+	if width <= 0 || height <= 0 || (width == 1 && height == 1) {
 		return &node{
 			topLeftX: startX,
 			topLeftY: startY,
@@ -29,17 +27,8 @@ func makeNode(floorContent [][]int, startX, startY, width, height int) *node {
 			isLeaf:   true,
 		}
 	}
-	// de même
-	if width == 1 && height == 1 {
-		return &node{
-			topLeftX: startX,
-			topLeftY: startY,
-			width:    1,
-			height:   1,
-			content:  floorContent[startY][startX],
-			isLeaf:   true,
-		}
-	}
+
+	// Création des sous nodes avec le découpage présenté dans le pdf
 
 	var halfWidth int = width / 2
 	var halfHeight int = height / 2
@@ -49,6 +38,7 @@ func makeNode(floorContent [][]int, startX, startY, width, height int) *node {
 	var bottomLeftNode *node = makeNode(floorContent, startX, startY+halfHeight, halfWidth, height-halfHeight)
 	var bottomRightNode *node = makeNode(floorContent, startX+halfWidth, startY+halfHeight, width-halfWidth, height-halfHeight)
 
+	//Réduction et elimination des doublons
 	if topLeftNode != nil && topRightNode != nil &&
 		bottomLeftNode != nil && bottomRightNode != nil &&
 		topLeftNode.isLeaf && topRightNode.isLeaf &&
