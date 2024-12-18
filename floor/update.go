@@ -44,10 +44,6 @@ func (f *Floor) updateGridFloor(topLeftX, topLeftY int) {
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
 func (f *Floor) updateFromFileFloor(topLeftX, topLeftY int) {
 
-	f.content = make([][]int, configuration.Global.NumTileY)
-	for i := range f.content {
-		f.content[i] = make([]int, configuration.Global.NumTileX)
-	}
 
 	for y := 0; y < len(f.content); y++ {
 		for x := 0; x < len(f.content[y]); x++ {
