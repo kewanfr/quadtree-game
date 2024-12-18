@@ -9,8 +9,9 @@ BERNIER Kéwan et GALLY Chianti
 ### Kéwan BERNIER
 
 - [x] Fonction [readFloorFromFile](./floor/init.go#readFloorFromFile)
-- [x] Fonction [MakeFromArray](./quadtree/make.go)
+- [X] Fonction [GetContent](./quadtree/get.go)
 
 ### Chianti GALLY
 
 - [x] Fonction [updateFromFileFloor](./floor/update.go#updateFromFileFloor)
+- [x] Fonction [MakeFromArray](./quadtree/make.go)
