@@ -22,17 +22,19 @@ func (n *node) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 		// On remplit le tableau contentHolder avec la valeur du noeud
 		// En vérifiant que les coordonnées du noeud sont bien dans le terrain à remplir
 
-	// On calcule les coordonnées du point auquel on sépare la node
-	splitX := n.topLeftX + n.width / 2
+
+
+
+		
 		if n.topLeftY >= topLeftY && n.topLeftY < topLeftY+len(contentHolder) &&
 			n.topLeftX >= topLeftX && n.topLeftX < topLeftX+len(contentHolder[0]) {
 			contentHolder[n.topLeftY-topLeftY][n.topLeftX-topLeftX] = n.content
 		}
-		// Si le point à trouver est dans la partie haute
-		if x < splitX {
+
+		
         return
     }
-		} else {
+
     // Si le noeud n'est pas une feuille
     if n.topLeftNode != nil {
         n.topLeftNode.GetContent(topLeftX, topLeftY, contentHolder)
