@@ -3,11 +3,25 @@ package quadtree
 // MakeFromArray construit un quadtree représentant un terrain
 // étant donné un tableau représentant ce terrain.
 func MakeFromArray(floorContent [][]int) (q Quadtree) {
-	height := len(floorContent) // y
-	if height == 0 {
-		return Quadtree{}
+	// on vérifie que floorContent n'est pas vide, auquel cas on return un quadtree vide
+	if len(floorContent) == 0 {
+		return q
 	}
+
+	height := len(floorContent)   // y
 	width := len(floorContent[0]) // x
+
+	//idem
+	if height == 0 || width == 0 {
+		return q
+	}
+
+	// ne devrait normalement pas arriver
+	for _, row := range floorContent {
+		if len(row) == 0 {
+			panic("floorContent invalide : les lignes ne doivent pas être vides")
+		}
+	}
 
 	q.width = width
 	q.height = height
@@ -42,7 +56,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 *
 */
 func makeNode(floorContent [][]int, startX, startY, width, height int) *node {
-	// Arrêt de la fonction récursive si les diemension sont 1x1 ou contiennent 0
+	// Arrêt de la fonction récursive si les dimensions sont 1x1 ou contiennent 0
 	if width <= 0 || height <= 0 || (width == 1 && height == 1) {
 		return &node{
 			topLeftX: startX,
