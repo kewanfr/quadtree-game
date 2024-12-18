@@ -1,33 +1,20 @@
 package quadtree
 
+import (
+	"fmt"
+)
+
 func (n *node) contentAt(x, y int) int {
-	/*
-	A partir d'un node, renvoie le contenu aux coordonnées (x, y)
-	*/
-	// Si la node est nil, il n'y a pas de sous-quadtree, donc on renvoie -1
-	if n == nil {
-		return -1
-	}
-    
-	// On vérifie si (x, y) est en dehors des bornes (+ la taille de la node )
-	if x < n.topLeftX || x >= n.topLeftX+n.width ||
-	   y < n.topLeftY || y >= n.topLeftY+n.height {
-		return -1
-	}
-    
+
 	// Si c’est une feuille, on renvoie directement le contenu
 	if n.isLeaf {
+		fmt.Println(x, y, n.content)
 		return n.content
 	}
-    
-	// SI c’est un noeud interne : on cherche (x, y)
-	// On calcule la taille de la moitié de la node
-	halfW := n.width / 2
-	halfH := n.height / 2
 
 	// On calcule les coordonnées du point
-	splitX := n.topLeftX + halfW
-	splitY := n.topLeftY + halfH
+	splitX := n.topLeftX + n.width / 2
+	splitY := n.topLeftY + n.height / 2
 
 	if y < splitY {
 		// Si on est dans la partie haute de la node
@@ -55,6 +42,14 @@ func (n *node) contentAt(x, y int) int {
 // (topLeftX, topLeftY)) à partir du qadtree q.
 func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 	// Pour chaque pixel du contentHolder que l'on veut remplir
+
+	// contentHolder = make([][]int, configuration.Global.NumTileY)
+	// for i := range contentHolder {
+	// 	contentHolder[i] = make([]int, configuration.Global.NumTileX)
+	// }
+
+	// fmt.Println(len(contentHolder), len(contentHolder[0]), configuration.Global.NumTileY, configuration.Global.NumTileX)
+
 	for y := 0; y < len(contentHolder); y++ {
 		for x := 0; x < len(contentHolder[y]); x++ {
 
@@ -62,8 +57,13 @@ func (q Quadtree) GetContent(topLeftX, topLeftY int, contentHolder [][]int) {
 			globalX := topLeftX + x
 			globalY := topLeftY + y
 
+			if q.root == nil || (globalX < q.root.topLeftX || globalX >= q.root.topLeftX+q.root.width || globalY < q.root.topLeftY || globalY >= q.root.topLeftY+q.root.height)  {
+				contentHolder[y][x] = -1 
+			}else {
+				contentHolder[y][x] = q.root.contentAt(globalX, globalY)
+			}
+
 			// On cherche le contenu dans le quadtree aux coordonnées globalX et globalY
-			contentHolder[y][x] = q.root.contentAt(globalX, globalY)
 
 		}
 	}
