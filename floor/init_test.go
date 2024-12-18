@@ -1,6 +1,7 @@
 package floor
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -34,6 +35,16 @@ func TestReadEmpty(t *testing.T) {
 
 func TestReadInvalidFile(t *testing.T) {
 	var result = readFloorFromFile("invalid")
+
+	if result != nil {
+		t.Error("Erreur: expected nil, got a result")
+	}
+}
+
+func TestReadInvalidContent(t *testing.T) {
+	var result = readFloorFromFile("../tests/invalidContent")
+
+	fmt.Println(result)
 
 	if result != nil {
 		t.Error("Erreur: expected nil, got a result")
