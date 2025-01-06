@@ -47,6 +47,9 @@ type Configuration struct {
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
+
+	// Extensions à activer ou desactiver dans la configuration
+	ExtTeleportation							bool
 }
 
 // Global est la variable qui contient la configuration
