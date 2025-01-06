@@ -50,6 +50,8 @@ type Configuration struct {
 
 	// Extensions à activer ou desactiver dans la configuration
 	ExtTeleportation							bool
+	ExtBlockingBlocks							bool
+	BlockingBlocks    						[]int
 }
 
 // Global est la variable qui contient la configuration

@@ -10,5 +10,7 @@
     "FloorKind": 2,
     "FloorFile": "../floor-files/beaupasbeau",
 
-    "ExtTeleportation": true
+    "ExtTeleportation": true,
+    "ExtBlockingBlocks": true,
+    "BlockingBlocks": [4]
 }
