@@ -1,6 +1,8 @@
 package floor
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
+import (
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
+)
 
 // Floor représente les données du terrain. Pour le moment
 // aucun champs n'est exporté.
@@ -11,15 +13,17 @@ import "gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
 //   - quadTreeContent : totalité du terrain sous forme de quadtree (utilisé
 //     avec le type d'affichage du terrain "quadtreeFloor")
 
-type Portal struct {
-	X, Y 						int
-
-}
 type Floor struct {
 	content         [][]int
 	fullContent     [][]int
 	quadtreeContent quadtree.Quadtree
-	Portals					[]Portal
+	// P1X, P1Y				int
+	// P2X, P2Y				int
+	// PortalStarted		bool
+	// PortalCreated		bool
+
+}
+
 
 // types d'affichage du terrain disponibles
 const (

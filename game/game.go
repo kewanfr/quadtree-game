@@ -13,8 +13,14 @@ import (
 //   - camera : la représentation de la caméra
 //   - floor : la représentation du terrain
 //   - character : la représentation du personnage
+
+type Portal struct {
+	X, Y 			int
+}
+
 type Game struct {
 	camera    camera.Camera
 	floor     floor.Floor
 	character character.Character
+	Portals 	[]Portal
 }
