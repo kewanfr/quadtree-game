@@ -19,20 +19,26 @@ func (g *Game) UpdateTeleport() error {
 				X: g.character.X,
 				Y: g.character.Y,
 			})
-			fmt.Println("Portal restarted")
+			if configuration.Global.DebugMode {
+				fmt.Println("Portal reset")
+			}
 
 		} else if len(g.Portals) == 1 {
 			g.Portals = append(g.Portals, Portal{
 				X: g.character.X,
 				Y: g.character.Y,
 			})
-			fmt.Println("Portal created")
+			if configuration.Global.DebugMode {
+				fmt.Println("Portal ended")
+			}
 		} else if len(g.Portals) == 0 {
 			g.Portals = append(g.Portals, Portal{
 				X: g.character.X,
 				Y: g.character.Y,
 			})
-			fmt.Println("Portal started")
+			if configuration.Global.DebugMode {
+				fmt.Println("Portal started")
+			}
 		}
 	}
 
