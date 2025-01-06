@@ -17,10 +17,13 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 
-	g.UpdateTeleporation()
 	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
+
+	if configuration.Global.ExtTeleportation {
+		g.UpdateTeleport()
+	}
 
 	return nil
 }
