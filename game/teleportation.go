@@ -55,19 +55,21 @@ func (g Game) DrawTeleport(screen *ebiten.Image, camX, camY int) {
 	topLeftX := configuration.Global.ScreenCenterTileX - camX
 	topLeftY := configuration.Global.ScreenCenterTileY - camY
 
-	if len(g.Portals) > 0 {
-		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[0].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[0].Y*configuration.Global.TileSize))
+		if len(g.Portals) > 0 && topLeftX+g.Portals[0].X >= 0 && topLeftX+g.Portals[0].X < configuration.Global.NumTileX && topLeftY+g.Portals[0].Y >= 0 && topLeftY+g.Portals[0].Y < configuration.Global.NumTileY{
 
-		screen.DrawImage(assets.TeleporterImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op)
+		
+				op := &ebiten.DrawImageOptions{}
+				op.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[0].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[0].Y*configuration.Global.TileSize))
+				
+				screen.DrawImage(assets.TeleporterImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op)
 
-	}
-	if len(g.Portals) > 1 {
+		}
+		if len(g.Portals) > 1 && topLeftX+g.Portals[1].X >= 0 && topLeftX+g.Portals[1].X < configuration.Global.NumTileX && topLeftY+g.Portals[1].Y >= 0 && topLeftY+g.Portals[1].Y < configuration.Global.NumTileY{
 
-		op2 := &ebiten.DrawImageOptions{}
-		op2.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[1].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[1].Y*configuration.Global.TileSize))
+			op2 := &ebiten.DrawImageOptions{}
+			op2.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[1].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[1].Y*configuration.Global.TileSize))
 
-		screen.DrawImage(assets.Teleporter_endImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op2)
-	}
+			screen.DrawImage(assets.Teleporter_endImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op2)
+		}
 
 }
