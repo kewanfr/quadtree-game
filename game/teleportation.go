@@ -45,6 +45,9 @@ func (g *Game) UpdateTeleport() error {
 	if len(g.Portals) == 2 && g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y {
 		g.character.X = g.Portals[1].X
 		g.character.Y = g.Portals[1].Y
+		g.camera.Update(g.character.X, g.character.Y)
+		g.floor.Update(g.camera.X, g.camera.Y)
+
 	}
 
 	return nil
@@ -55,21 +58,20 @@ func (g Game) DrawTeleport(screen *ebiten.Image, camX, camY int) {
 	topLeftX := configuration.Global.ScreenCenterTileX - camX
 	topLeftY := configuration.Global.ScreenCenterTileY - camY
 
-		if len(g.Portals) > 0 && topLeftX+g.Portals[0].X >= 0 && topLeftX+g.Portals[0].X < configuration.Global.NumTileX && topLeftY+g.Portals[0].Y >= 0 && topLeftY+g.Portals[0].Y < configuration.Global.NumTileY{
+	if len(g.Portals) > 0 && topLeftX+g.Portals[0].X >= 0 && topLeftX+g.Portals[0].X < configuration.Global.NumTileX && topLeftY+g.Portals[0].Y >= 0 && topLeftY+g.Portals[0].Y < configuration.Global.NumTileY {
 
-		
-				op := &ebiten.DrawImageOptions{}
-				op.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[0].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[0].Y*configuration.Global.TileSize))
-				
-				screen.DrawImage(assets.TeleporterImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op)
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[0].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[0].Y*configuration.Global.TileSize))
 
-		}
-		if len(g.Portals) > 1 && topLeftX+g.Portals[1].X >= 0 && topLeftX+g.Portals[1].X < configuration.Global.NumTileX && topLeftY+g.Portals[1].Y >= 0 && topLeftY+g.Portals[1].Y < configuration.Global.NumTileY{
+		screen.DrawImage(assets.TeleporterImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op)
 
-			op2 := &ebiten.DrawImageOptions{}
-			op2.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[1].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[1].Y*configuration.Global.TileSize))
+	}
+	if len(g.Portals) > 1 && topLeftX+g.Portals[1].X >= 0 && topLeftX+g.Portals[1].X < configuration.Global.NumTileX && topLeftY+g.Portals[1].Y >= 0 && topLeftY+g.Portals[1].Y < configuration.Global.NumTileY {
 
-			screen.DrawImage(assets.Teleporter_endImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op2)
-		}
+		op2 := &ebiten.DrawImageOptions{}
+		op2.GeoM.Translate(float64(topLeftX*configuration.Global.TileSize+g.Portals[1].X*configuration.Global.TileSize), float64(topLeftY*configuration.Global.TileSize+g.Portals[1].Y*configuration.Global.TileSize))
+
+		screen.DrawImage(assets.Teleporter_endImage.SubImage(image.Rect(0, 0, configuration.Global.TileSize, configuration.Global.TileSize)).(*ebiten.Image), op2)
+	}
 
 }
