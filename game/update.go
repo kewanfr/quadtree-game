@@ -21,5 +21,9 @@ func (g *Game) Update() error {
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 
+	if configuration.Global.ExtTeleportation {
+		g.UpdateTeleport()
+	}
+
 	return nil
 }

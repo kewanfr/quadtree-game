@@ -19,6 +19,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	g.floor.Draw(screen)
 	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
+	if configuration.Global.ExtTeleportation {
+		g.DrawTeleport(screen, g.camera.X, g.camera.Y)
+	}
+
 	if configuration.Global.DebugMode {
 		g.drawDebug(screen)
 	}

@@ -8,5 +8,9 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/beaupasbeau"
+    "FloorFile": "../floor-files/beaupasbeau",
+
+    "ExtTeleportation": true,
+    "ExtBlockingBlocks": true,
+    "BlockingBlocks": [4]
 }

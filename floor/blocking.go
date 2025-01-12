@@ -2,6 +2,17 @@ package floor
 
 import "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 
+
+func isBlockingBlock(block int) (isBlocking bool) {
+	for _, v := range configuration.Global.BlockingBlocks {
+		if v == block {
+			isBlocking = true
+		}
+	}
+
+	return isBlocking
+}
+
 // Blocking retourne, étant donnée la position du personnage,
 // un tableau de booléen indiquant si les cases au dessus (0),
 // à droite (1), au dessous (2) et à gauche (3) du personnage
@@ -15,5 +26,13 @@ func (f Floor) Blocking(characterXPos, characterYPos, camXPos, camYPos int) (blo
 	blocking[1] = relativeXPos >= configuration.Global.NumTileX-1 || f.content[relativeYPos][relativeXPos+1] == -1
 	blocking[2] = relativeYPos >= configuration.Global.NumTileY-1 || f.content[relativeYPos+1][relativeXPos] == -1
 	blocking[3] = relativeXPos <= 0 || f.content[relativeYPos][relativeXPos-1] == -1
+
+	if configuration.Global.ExtBlockingBlocks {
+		blocking[0] = blocking[0] || isBlockingBlock(f.content[relativeYPos-1][relativeXPos])
+		blocking[1] = blocking[1] || isBlockingBlock(f.content[relativeYPos][relativeXPos+1])
+		blocking[2] = blocking[2] || isBlockingBlock(f.content[relativeYPos+1][relativeXPos])
+		blocking[3] = blocking[3] || isBlockingBlock(f.content[relativeYPos][relativeXPos-1])
+	}
+
 	return blocking
 }
