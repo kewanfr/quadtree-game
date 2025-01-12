@@ -1,6 +1,7 @@
 package floor
 
 import (
+	"github.com/hajimehoshi/ebiten/v2"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 )
 
@@ -22,6 +23,35 @@ func (f *Floor) Update(camXPos, camYPos int) {
 	case QuadTreeFloor:
 		f.updateQuadtreeFloor(topLeftX, topLeftY)
 	}
+
+	if configuration.Global.ExtZoom {
+		if ebiten.IsKeyPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
+			configuration.Global.NumTileX += 1
+			configuration.Global.NumTileY += 1
+
+			configuration.SetComputedFields()
+
+			f.content = make([][]int, configuration.Global.NumTileY)
+			for y := 0; y < len(f.content); y++ {
+				f.content[y] = make([]int, configuration.Global.NumTileX)
+			}
+		}
+
+		//hard limit à 6 pour éviter tout problème avec blocking.go
+		if ebiten.IsKeyPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= 6) || !(configuration.Global.NumTileY <= 6)) {
+			configuration.Global.NumTileX -= 1
+			configuration.Global.NumTileY -= 1
+
+			configuration.SetComputedFields()
+
+			f.content = make([][]int, configuration.Global.NumTileY)
+			for y := 0; y < len(f.content); y++ {
+				f.content[y] = make([]int, configuration.Global.NumTileX)
+			}
+		}
+
+	}
+
 }
 
 // le sol est un quadrillage de tuiles d'herbe et de tuiles de désert

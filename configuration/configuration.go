@@ -44,13 +44,16 @@ type Configuration struct {
 	CameraMode                    int
 	FloorKind                     int
 	FloorFile                     string
-	ExtSmoothTerrain              bool
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
 
 	// Extensions à activer ou desactiver dans la configuration
+	ExtSmoothTerrain  bool
 	ExtTeleportation  bool
+	ExtZoom           bool
+	MaxZoom           int
+	ExtRoundEarth     bool
 	ExtBlockingBlocks bool
 	BlockingBlocks    []int
 }
@@ -76,12 +79,12 @@ func Load(configurationFileName string) {
 		log.Fatal("Error while reading configuration file: ", err)
 	}
 
-	setComputedFields()
+	SetComputedFields()
 }
 
-// setComputedFields se charge de remplir les champs calculés
+// SetComputedFields se charge de remplir les champs calculés
 // de la configuration à partir des autres champs.
-func setComputedFields() {
+func SetComputedFields() {
 	Global.ScreenWidth = Global.NumTileX * Global.TileSize
 	Global.ScreenHeight = Global.NumTileY * Global.TileSize
 	Global.ScreenCenterTileX = Global.NumTileX / 2

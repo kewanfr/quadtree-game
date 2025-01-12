@@ -20,5 +20,5 @@ BERNIER Kéwan et GALLY Chianti
 - [] Extension 6.9 Affichage du terrain amélioré
 - [] Extension 6.10 Particules
 - [] Extension 6.11 La terre est ronde
-- [] Extension 6.12 Zoom
+- [X] Extension 6.12 Zoom
 - [] Extension 6.3 Animation des décors
