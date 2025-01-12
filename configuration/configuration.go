@@ -44,14 +44,15 @@ type Configuration struct {
 	CameraMode                    int
 	FloorKind                     int
 	FloorFile                     string
+	ExtSmoothTerrain              bool
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
 
 	// Extensions à activer ou desactiver dans la configuration
-	ExtTeleportation							bool
-	ExtBlockingBlocks							bool
-	BlockingBlocks    						[]int
+	ExtTeleportation  bool
+	ExtBlockingBlocks bool
+	BlockingBlocks    []int
 }
 
 // Global est la variable qui contient la configuration

@@ -9,8 +9,9 @@
     "CameraMode": 1,
     "FloorKind": 2,
     "FloorFile": "../floor-files/beaupasbeau",
-
+    "ExtSmoothTerrain": false,
     "ExtTeleportation": true,
     "ExtBlockingBlocks": true,
-    "BlockingBlocks": [4]
+    "BlockingBlocks": [4],
+    "FloorFile": "../floor-files/test_smooth"
 }

@@ -16,11 +16,17 @@ func (f *Floor) Init() {
 		f.content[y] = make([]int, configuration.Global.NumTileX)
 	}
 
+	fileContent := readFloorFromFile(configuration.Global.FloorFile)
+
+	if configuration.Global.ExtSmoothTerrain {
+		fileContent = SmoothTerrain(fileContent)
+	}
+
 	switch configuration.Global.FloorKind {
 	case FromFileFloor:
-		f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
+		f.fullContent = fileContent
 	case QuadTreeFloor:
-		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
+		f.quadtreeContent = quadtree.MakeFromArray(fileContent)
 	}
 }
 
@@ -47,22 +53,22 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 
 	// Ouvre le fichier
 	floorFile, err := os.Open(fileName)
-	
+
 	// Si erreur (ex: Le fichier existe pas ou autre)
 	if err != nil {
 		return nil
 	}
 
-	var scanner *bufio.Scanner  = bufio.NewScanner(floorFile)
+	var scanner *bufio.Scanner = bufio.NewScanner(floorFile)
 
 	// On scanne le fichier ligne par ligne
-	for scanner.Scan(){
+	for scanner.Scan() {
 		line := scanner.Text()
 		var lineArr []int
-		
+
 		// On itère sur chaque élément de la ligne
 		for _, r := range line {
-			elInt, err :=  strconv.Atoi(string(r))
+			elInt, err := strconv.Atoi(string(r))
 
 			// Si une erreur de conversion (ex: le contenu est pas un entier)
 			if err != nil {
