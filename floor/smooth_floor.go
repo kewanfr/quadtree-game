@@ -32,7 +32,7 @@ const PATH_V = 36
 const PATH_RIGHT = 28
 
 func SmoothTerrain(content [][]int) [][]int {
-	width := len(content[0]) // Assuming all rows have the same length
+	width := len(content[0])
 	height := len(content)
 
 	for y := range content {
