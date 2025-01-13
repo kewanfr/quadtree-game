@@ -21,10 +21,11 @@ func (g *Game) Update() error {
 		g.floor.SaveFloor()
 	}
 	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
-	g.character.Update(blocking)
-	if (configuration.Global.ExtSpeedRun) {
-		g.character.Update(blocking)
+	g.character.Update(blocking, &g.particles)
+	if configuration.Global.ExtSpeedRun {
+		g.character.Update(blocking, &g.particles)
 	}
+
 	if configuration.Global.ExtParticles {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
