@@ -17,12 +17,27 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 
-	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
+	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y), &g.particles)
+
+	if configuration.Global.ExtParticles {
+		for i := 0; i < len(g.particles); i++ {
+			g.particles[i].Update()
+
+			if !g.particles[i].Moving {
+				g.particles = append(g.particles[:i], g.particles[i+1:]...)
+				i--
+			}
+		}
+	}
+
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 
 	if configuration.Global.ExtTeleportation {
-		g.UpdateTeleport()
+		err := g.UpdateTeleport()
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

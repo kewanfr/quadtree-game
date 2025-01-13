@@ -1,7 +1,9 @@
 package character
 
+import "C"
 import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/particles"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -9,7 +11,7 @@ import (
 // Update met à jour la position du personnage, son orientation
 // et son étape d'animation (si nécessaire) à chaque pas
 // de temps, c'est-à-dire tous les 1/60 secondes.
-func (c *Character) Update(blocking [4]bool) {
+func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle) {
 
 	if !c.moving {
 		if ebiten.IsKeyPressed(ebiten.KeyRight) {
@@ -17,24 +19,56 @@ func (c *Character) Update(blocking [4]bool) {
 			if !blocking[1] {
 				c.xInc = 1
 				c.moving = true
+				if configuration.Global.ExtParticles {
+					*particlesList = append(*particlesList, particles.Particle{
+						X:             c.X,
+						Y:             c.Y,
+						AnimationStep: 1,
+						Moving:        true,
+					})
+				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyLeft) {
 			c.orientation = orientedLeft
 			if !blocking[3] {
 				c.xInc = -1
 				c.moving = true
+				if configuration.Global.ExtParticles {
+					*particlesList = append(*particlesList, particles.Particle{
+						X:             c.X,
+						Y:             c.Y,
+						AnimationStep: 1,
+						Moving:        true,
+					})
+				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyUp) {
 			c.orientation = orientedUp
 			if !blocking[0] {
 				c.yInc = -1
 				c.moving = true
+				if configuration.Global.ExtParticles {
+					*particlesList = append(*particlesList, particles.Particle{
+						X:             c.X,
+						Y:             c.Y,
+						AnimationStep: 1,
+						Moving:        true,
+					})
+				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyDown) {
 			c.orientation = orientedDown
 			if !blocking[2] {
 				c.yInc = 1
 				c.moving = true
+				if configuration.Global.ExtParticles {
+					*particlesList = append(*particlesList, particles.Particle{
+						X:             c.X,
+						Y:             c.Y,
+						AnimationStep: 1,
+						Moving:        true,
+					})
+				}
 			}
 		}
 	} else {

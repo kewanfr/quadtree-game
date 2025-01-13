@@ -32,6 +32,11 @@ var characterBytes []byte
 // le voulez.
 var CharacterImage *ebiten.Image
 
+//go:embed particles/dust.png
+var dustBytes []byte
+
+var DustImage *ebiten.Image
+
 //go:embed teleporter.png
 var teleporterBytes []byte
 
@@ -69,4 +74,10 @@ func Load() {
 		log.Fatal(err)
 	}
 	Teleporter_endImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(dustBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	DustImage = ebiten.NewImageFromImage(decoded)
 }

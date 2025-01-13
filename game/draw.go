@@ -23,9 +23,16 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.DrawTeleport(screen, g.camera.X, g.camera.Y)
 	}
 
+	if configuration.Global.ExtParticles {
+		for _, particle := range g.particles {
+			particle.Draw(screen, g.camera.X, g.camera.Y)
+		}
+	}
+
 	if configuration.Global.DebugMode {
 		g.drawDebug(screen)
 	}
+
 }
 
 // drawDebug se charge d'afficher les informations de debug si

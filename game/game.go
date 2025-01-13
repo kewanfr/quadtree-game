@@ -4,6 +4,7 @@ import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/camera"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/character"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/floor"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/particles"
 )
 
 // Game est le type permettant de représenter les données du jeu.
@@ -15,12 +16,13 @@ import (
 //   - character : la représentation du personnage
 
 type Portal struct {
-	X, Y 			int
+	X, Y int
 }
 
 type Game struct {
 	camera    camera.Camera
 	floor     floor.Floor
 	character character.Character
-	Portals 	[]Portal
+	Portals   []Portal
+	particles []particles.Particle
 }

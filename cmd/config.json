@@ -10,6 +10,7 @@
     "FloorKind": 2,
     "FloorFile": "../floor-files/test_smooth",
     "ExtSmoothTerrain": false,
+    "ExtParticles": true,
     "ExtRoundEarth": true,
     "ExtZoom": true,
     "MaxZoom": 16,
