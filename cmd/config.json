@@ -18,5 +18,6 @@
     "ExtBlockingBlocks": true,
     "BlockingBlocks": [ 4],
     "ExtRandomFloorGeneration": false,
-    "ExtFloorSave": true
+    "ExtFloorSave": true,
+    "ExtSpeedRun": true
 }

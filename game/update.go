@@ -20,7 +20,11 @@ func (g *Game) Update() error {
 	if configuration.Global.ExtFloorSave && inpututil.IsKeyJustPressed(ebiten.KeyF5) {
 		g.floor.SaveFloor()
 	}
-	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
+	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
+	g.character.Update(blocking)
+	if (configuration.Global.ExtSpeedRun) {
+		g.character.Update(blocking)
+	}
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 

@@ -59,6 +59,7 @@ type Configuration struct {
 	BlockingBlocks    						[]int
 	ExtRandomFloorGeneration			bool
 	ExtFloorSave 									bool
+	ExtSpeedRun										bool
 }
 
 // Global est la variable qui contient la configuration
