@@ -8,7 +8,7 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/test_smooth",
+    "FloorFile": "../floor-files/beaupasbeau",
     "ExtSmoothTerrain": false,
     "ExtRoundEarth": true,
     "ExtZoom": true,
@@ -16,6 +16,7 @@
     "MinZoom": 4,
     "ExtTeleportation": true,
     "ExtBlockingBlocks": true,
-    "BlockingBlocks": [4],
-    "ExtRandomFloorGeneration": false
+    "BlockingBlocks": [ 4],
+    "ExtRandomFloorGeneration": true,
+    "ExtFloorSave": true
 }
