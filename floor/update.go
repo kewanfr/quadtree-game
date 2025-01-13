@@ -2,6 +2,7 @@ package floor
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 )
 
@@ -25,7 +26,7 @@ func (f *Floor) Update(camXPos, camYPos int) {
 	}
 
 	if configuration.Global.ExtZoom {
-		if ebiten.IsKeyPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
 			configuration.Global.NumTileX += 1
 			configuration.Global.NumTileY += 1
 
@@ -38,7 +39,7 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		}
 
 		//hard limit à 6 pour éviter tout problème avec blocking.go
-		if ebiten.IsKeyPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
 			configuration.Global.NumTileX -= 1
 			configuration.Global.NumTileY -= 1
 
