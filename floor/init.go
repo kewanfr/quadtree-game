@@ -2,6 +2,7 @@ package floor
 
 import (
 	"bufio"
+	"math/rand"
 	"os"
 	"strconv"
 
@@ -16,7 +17,13 @@ func (f *Floor) Init() {
 		f.content[y] = make([]int, configuration.Global.NumTileX)
 	}
 
-	fileContent := readFloorFromFile(configuration.Global.FloorFile)
+	var fileContent [][]int
+	if configuration.Global.ExtRandomFloorGeneration {
+		fileContent = generateRandomFloorContent()
+	} else {
+		fileContent = readFloorFromFile(configuration.Global.FloorFile)
+	}
+
 
 	if configuration.Global.ExtSmoothTerrain {
 		fileContent = SmoothTerrain(fileContent)
@@ -29,6 +36,20 @@ func (f *Floor) Init() {
 		f.quadtreeContent = quadtree.MakeFromArray(fileContent)
 	}
 }
+
+
+func generateRandomFloorContent() (floorContent [][]int) {
+	for x := 0; x < configuration.Global.NumTileX; x++ {
+		var line []int
+		for y := 0; y < configuration.Global.NumTileY; y++ {
+			line = append(line, rand.Intn(5))
+		}
+		floorContent = append(floorContent, line)
+	}
+
+	return floorContent
+}
+
 
 // lecture du contenu d'un fichier représentant un terrain
 // pour le stocker dans un tableau
