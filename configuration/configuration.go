@@ -57,6 +57,7 @@ type Configuration struct {
 	ExtRoundEarth     bool
 	ExtBlockingBlocks bool
 	BlockingBlocks    []int
+	ExtRandomFloorGeneration			bool
 }
 
 // Global est la variable qui contient la configuration
