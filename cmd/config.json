@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "NumTileX": 9,
     "NumTileY": 9,
     "TileSize": 16,
@@ -8,7 +8,7 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/test_smooth",
+    "FloorFile": "../floor-files/floor",
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
     "ExtRoundEarth": true,
@@ -17,5 +17,8 @@
     "MinZoom": 4,
     "ExtTeleportation": true,
     "ExtBlockingBlocks": true,
-    "BlockingBlocks": [4]
+    "BlockingBlocks": [ 4],
+    "ExtRandomFloorGeneration": false,
+    "ExtFloorSave": true,
+    "ExtSpeedRun": true
 }

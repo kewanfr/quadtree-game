@@ -16,7 +16,13 @@ func (f *Floor) Init() {
 		f.content[y] = make([]int, configuration.Global.NumTileX)
 	}
 
-	fileContent := readFloorFromFile(configuration.Global.FloorFile)
+	var fileContent [][]int
+	if configuration.Global.ExtRandomFloorGeneration {
+		fileContent = generateRandomFloorContent()
+	} else {
+		fileContent = readFloorFromFile(configuration.Global.FloorFile)
+	}
+
 
 	if configuration.Global.ExtSmoothTerrain {
 		fileContent = SmoothTerrain(fileContent)
@@ -29,6 +35,7 @@ func (f *Floor) Init() {
 		f.quadtreeContent = quadtree.MakeFromArray(fileContent)
 	}
 }
+
 
 // lecture du contenu d'un fichier représentant un terrain
 // pour le stocker dans un tableau

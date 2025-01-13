@@ -17,8 +17,14 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 
-	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y), &g.particles)
-
+	if configuration.Global.ExtFloorSave && inpututil.IsKeyJustPressed(ebiten.KeyF5) {
+		g.floor.SaveFloor()
+	}
+	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
+	g.character.Update(blocking)
+	if (configuration.Global.ExtSpeedRun) {
+		g.character.Update(blocking)
+	}
 	if configuration.Global.ExtParticles {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
@@ -34,10 +40,7 @@ func (g *Game) Update() error {
 	g.floor.Update(g.camera.X, g.camera.Y)
 
 	if configuration.Global.ExtTeleportation {
-		err := g.UpdateTeleport()
-		if err != nil {
-			return err
-		}
+		g.UpdateTeleport()
 	}
 
 	return nil
