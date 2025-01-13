@@ -52,4 +52,12 @@ func (f Floor) GetWidth() (width int) {
 	return
 }
 
+func (f Floor) GetBlockContent(x, y int) (int) {
+	return f.content[x][y]
+}
+
+func (f Floor) GetContent() (content [][]int){
+	return f.content
+}
+
 
