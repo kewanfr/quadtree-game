@@ -13,6 +13,7 @@
     "ExtRoundEarth": true,
     "ExtZoom": true,
     "MaxZoom": 16,
+    "MinZoom": 4,
     "ExtTeleportation": true,
     "ExtBlockingBlocks": true,
     "BlockingBlocks": [4]

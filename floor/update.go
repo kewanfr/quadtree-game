@@ -38,11 +38,11 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		}
 
 		//hard limit à 6 pour éviter tout problème avec blocking.go
-		if ebiten.IsKeyPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= 6) || !(configuration.Global.NumTileY <= 6)) {
+		if ebiten.IsKeyPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
 			configuration.Global.NumTileX -= 1
 			configuration.Global.NumTileY -= 1
 
-			configuration.SetComputedFields()
+			configuration.SetComputedFields() // update l'ui
 
 			f.content = make([][]int, configuration.Global.NumTileY)
 			for y := 0; y < len(f.content); y++ {

@@ -53,6 +53,7 @@ type Configuration struct {
 	ExtTeleportation  bool
 	ExtZoom           bool
 	MaxZoom           int
+	MinZoom           int
 	ExtRoundEarth     bool
 	ExtBlockingBlocks bool
 	BlockingBlocks    []int
