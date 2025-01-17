@@ -10,6 +10,13 @@ import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 )
 
+func (g *Game) TeleportTo(x, y int) {
+	g.character.X = x
+	g.character.Y = y
+	g.camera.Update(g.character.X, g.character.Y)
+	g.floor.Update(g.camera.X, g.camera.Y)
+}
+
 func (g *Game) UpdateTeleport() error {
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyT) {
@@ -42,14 +49,13 @@ func (g *Game) UpdateTeleport() error {
 		}
 	}
 
-	if len(g.Portals) == 2 && g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y {
-		g.character.X = g.Portals[1].X
-		g.character.Y = g.Portals[1].Y
-		g.camera.Update(g.character.X, g.character.Y)
-		g.floor.Update(g.camera.X, g.camera.Y)
 
+
+	if len(g.Portals) == 2 {
+		if (g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y ) {
+			g.TeleportTo(g.Portals[1].X, g.Portals[1].Y)
+		}
 	}
-
 	return nil
 }
 
