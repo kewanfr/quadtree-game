@@ -21,14 +21,7 @@ func (g *Game) Update() error {
 		g.floor.SaveFloor()
 	}
 
-	// g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
-
-	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
-	g.character.Update(blocking, &g.particles)
-	if configuration.Global.ExtSpeedRun {
-		g.character.Update(blocking, &g.particles)
-	}
-
+	// Particule DEVANT le bonhomme
 	if configuration.Global.ExtParticles {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
@@ -40,11 +33,23 @@ func (g *Game) Update() error {
 		}
 	}
 
+	// g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
+
+	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
+	g.character.Update(blocking, &g.particles)
+
+	if configuration.Global.ExtSpeedRun {
+		g.character.Update(blocking, &g.particles)
+	}
+
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 
 	if configuration.Global.ExtTeleportation {
-		g.UpdateTeleport()
+		err := g.UpdateTeleport()
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
