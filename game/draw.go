@@ -95,4 +95,7 @@ func (g Game) drawDebug(screen *ebiten.Image) {
 
 	ebitenutil.DebugPrintAt(screen, "Character:", xMaxPos+2*configuration.Global.TileSize, 3*ySpace)
 	ebitenutil.DebugPrintAt(screen, fmt.Sprint("(", g.character.X, ",", g.character.Y, ")"), xMaxPos+2*configuration.Global.TileSize+configuration.Global.TileSize/2, 4*ySpace)
+
+	ebitenutil.DebugPrintAt(screen, "Zoom:", xMaxPos+2*configuration.Global.TileSize, 5*ySpace)
+	ebitenutil.DebugPrintAt(screen, fmt.Sprint("(", configuration.Global.NumTileX, "/", configuration.Global.MaxZoom, ")"), xMaxPos+2*configuration.Global.TileSize+configuration.Global.TileSize/2, 6*ySpace)
 }
