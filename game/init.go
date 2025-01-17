@@ -27,4 +27,6 @@ func (g *Game) Init() {
 		
 	}
 
+	g.justTeleported = true
+
 }

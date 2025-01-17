@@ -11,24 +11,7 @@ import (
 )
 
 func (g *Game) TeleportTo(x, y int) {
-
-	blocking := g.floor.Blocking(x, y, g.camera.X, g.camera.Y)
 	
-	// Regarde si le personnage peut se déplacer sur la case souhaitée
-	// (Marche bien pour les bordures de la map, ou pour les blocking blocks si y'en a que 1)
-	// (Mais pas idéal si plusieurs blocking blocks sont côte à côte)
-
-	if blocking[0] {
-		x = x + 1
-	} else if blocking[1] {
-		x = x - 1
-	} else if blocking[2] {
-		y = y + 1
-	} else if blocking[3] {
-		y = y - 1
-	}else {
-		x = x + 1
-	}
 	
 	g.character.X = x
 	g.character.Y = y
@@ -72,9 +55,21 @@ func (g *Game) UpdateTeleport() error {
 
 	if len(g.Portals) == 2 {
 		if (g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y) {
-			g.TeleportTo(g.Portals[1].X, g.Portals[1].Y)
+			if (!g.justTeleported && !g.character.GetIsMoving()) {
+				g.TeleportTo(g.Portals[1].X, g.Portals[1].Y)
+				g.justTeleported = true
+			}
+			if (g.character.GetIsMoving() && g.justTeleported) {
+				g.justTeleported = false
+			}
 		} else if (g.Portals[1].X == g.character.X && g.Portals[1].Y == g.character.Y) {
-			g.TeleportTo(g.Portals[0].X, g.Portals[0].Y)
+			if (!g.justTeleported && !g.character.GetIsMoving()) {
+				g.TeleportTo(g.Portals[0].X, g.Portals[0].Y)
+				g.justTeleported = true
+			}
+			if (g.character.GetIsMoving() && g.justTeleported) {
+				g.justTeleported = false
+			}
 	}
 	}
 	return nil

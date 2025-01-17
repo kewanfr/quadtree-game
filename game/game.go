@@ -24,5 +24,6 @@ type Game struct {
 	floor     floor.Floor
 	character character.Character
 	Portals   []Portal
+	justTeleported  bool
 	particles []particles.Particle
 }

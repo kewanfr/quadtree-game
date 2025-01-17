@@ -9,3 +9,7 @@ func (c *Character) Init(floorWidth, floorHeight int) {
 	c.X = floorWidth / 2
 	c.Y = floorHeight / 2
 }
+
+func (c *Character) GetIsMoving() bool {
+	return c.moving
+}
