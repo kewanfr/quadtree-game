@@ -60,7 +60,7 @@ type Configuration struct {
 	ExtRandomFloorGeneration			bool
 	ExtFloorSave 									bool
 	ExtSpeedRun										bool
-	ExtParticles      bool
+	ExtParticles      						bool
 }
 
 // Global est la variable qui contient la configuration
