@@ -10,6 +10,9 @@ func (c *Character) Init(floorWidth, floorHeight int) {
 	c.Y = floorHeight / 2
 }
 
+// GetIsMoving sert à exporter la variable character.moving 
+// afin de pouvoir la récupérer dans game/game.go
+// Sert à savoir si le personnage est en mouvement ou non
 func (c *Character) GetIsMoving() bool {
 	return c.moving
 }

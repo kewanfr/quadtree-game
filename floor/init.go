@@ -17,6 +17,8 @@ func (f *Floor) Init() {
 	}
 
 	var fileContent [][]int
+
+	// Si on veut générer un terrain aléatoire, on utilise la fonction generateRandomFloorContent comme contenu du tableau
 	if configuration.Global.ExtRandomFloorGeneration {
 		fileContent = generateRandomFloorContent()
 		f.fullContent = fileContent

@@ -9,12 +9,18 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+/**
+Draw dessine les particules sur l'écran
+**/
 func (p Particle) Draw(screen *ebiten.Image, camX, camY int) {
 	xShift := 0
 	yShift := 0
 
+	// Calcule la position de la particule sur le terrain
 	xTileForDisplay := p.X - camX + configuration.Global.ScreenCenterTileX
 	yTileForDisplay := p.Y - camY + configuration.Global.ScreenCenterTileY
+
+	// Calcule la position de la particule sur l'écran
 	xPos := (xTileForDisplay)*configuration.Global.TileSize + xShift
 	yPos := (yTileForDisplay)*configuration.Global.TileSize - configuration.Global.TileSize/2 + 2 + yShift
 

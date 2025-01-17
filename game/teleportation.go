@@ -11,14 +11,16 @@ import (
 )
 
 func (g *Game) TeleportTo(x, y int) {
-	
-	
+
 	g.character.X = x
 	g.character.Y = y
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
 }
 
+// Cette fonction est exécutée dans le game/update si l'extension est activée
+// Elle gère l'ajout de portails avec la touche T
+// Et la téléportation du personnage si il se trouve sur un portail
 func (g *Game) UpdateTeleport() error {
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyT) {
@@ -51,26 +53,26 @@ func (g *Game) UpdateTeleport() error {
 		}
 	}
 
-
-
+	// Si il y a deux portails
 	if len(g.Portals) == 2 {
-		if (g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y) {
-			if (!g.justTeleported && !g.character.GetIsMoving()) {
-				g.TeleportTo(g.Portals[1].X, g.Portals[1].Y)
-				g.justTeleported = true
+
+		for i := 0; i < len(g.Portals); i++ {
+			// Si le perso est sur un portail
+
+			if g.Portals[i].X == g.character.X && g.Portals[i].Y == g.character.Y {
+				// Il faut qu'il n'ait pas été récemment téléporté et qu'il ne soit pas en mouvement
+				if !g.justTeleported && !g.character.GetIsMoving() {
+					// On le téléporte sur l'autre portail
+					g.TeleportTo(g.Portals[(i+1)%2].X, g.Portals[(i+1)%2].Y)
+					g.justTeleported = true
+				}
+
+				// S'il se met à bouger et vient d'être téléporté, on réinitialise la variable
+				if g.character.GetIsMoving() && g.justTeleported {
+					g.justTeleported = false
+				}
 			}
-			if (g.character.GetIsMoving() && g.justTeleported) {
-				g.justTeleported = false
-			}
-		} else if (g.Portals[1].X == g.character.X && g.Portals[1].Y == g.character.Y) {
-			if (!g.justTeleported && !g.character.GetIsMoving()) {
-				g.TeleportTo(g.Portals[0].X, g.Portals[0].Y)
-				g.justTeleported = true
-			}
-			if (g.character.GetIsMoving() && g.justTeleported) {
-				g.justTeleported = false
-			}
-	}
+		}
 	}
 	return nil
 }

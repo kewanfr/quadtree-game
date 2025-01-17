@@ -27,6 +27,8 @@ func (g *Game) Init() {
 		
 	}
 
+	// Par défaut, on considère que le joueur vient d'être téléporté
+	// Afin d'éviter d'être téléporté en posant un portail
 	g.justTeleported = true
 
 }
