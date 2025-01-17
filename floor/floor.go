@@ -21,6 +21,7 @@ type Floor struct {
 	// P2X, P2Y				int
 	// PortalStarted		bool
 	// PortalCreated		bool
+	updateCounter  	int
 
 }
 

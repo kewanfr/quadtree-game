@@ -11,12 +11,15 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
+var animation int
+
+
 // Draw permet d'afficher à l'écran tous les éléments du jeu
 // (le sol, le personnage, les éventuelles informations de debug).
 // Il faut faire attention à l'ordre d'affichage pour éviter d'avoir
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.floor.Draw(screen)
+	g.floor.Draw(screen, animation/120)
 	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
 	if configuration.Global.ExtTeleportation {
@@ -32,6 +35,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if configuration.Global.DebugMode {
 		g.drawDebug(screen)
 	}
+	animation++
 
 }
 

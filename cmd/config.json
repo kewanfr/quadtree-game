@@ -20,5 +20,6 @@
     "BlockingBlocks": [4],
     "ExtRandomFloorGeneration": false,
     "ExtFloorSave": false,
-    "ExtSpeedRun": false
+    "ExtSpeedRun": false,
+    "ExtWaterAnimation": true
 }

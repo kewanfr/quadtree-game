@@ -61,6 +61,7 @@ type Configuration struct {
 	ExtFloorSave 									bool
 	ExtSpeedRun										bool
 	ExtParticles      						bool
+	ExtWaterAnimation							bool
 }
 
 // Global est la variable qui contient la configuration

@@ -17,6 +17,7 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 
+	// Si on appuie sur la touche F5, on sauvegarde le terrain
 	if configuration.Global.ExtFloorSave && inpututil.IsKeyJustPressed(ebiten.KeyF5) {
 		g.floor.SaveFloor()
 	}

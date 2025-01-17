@@ -47,6 +47,12 @@ var teleporter_endBytes []byte
 
 var Teleporter_endImage *ebiten.Image
 
+//go:embed water.png
+var waterBytes []byte
+
+var WaterImage *ebiten.Image
+
+
 // Load est la fonction en charge de transformer, à l'exécution du programme,
 // les images du jeu en structures de données compatibles avec Ebitengine.
 // Ces structures de données sont stockées dans les variables définies ci-dessus.
@@ -68,6 +74,12 @@ func Load() {
 		log.Fatal(err)
 	}
 	TeleporterImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(waterBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	WaterImage = ebiten.NewImageFromImage(decoded)
 
 	decoded, _, err = image.Decode(bytes.NewReader(teleporter_endBytes))
 	if err != nil {
