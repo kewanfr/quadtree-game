@@ -17,9 +17,15 @@ func (g *Game) Update() error {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}
 
+	if g.messageFrames > 0 {
+		g.messageFrames-- // Réduire la durée d'affichage du message
+	}
+
 	// Si on appuie sur la touche F5, on sauvegarde le terrain
 	if configuration.Global.ExtFloorSave && inpututil.IsKeyJustPressed(ebiten.KeyF5) {
 		g.floor.SaveFloor()
+		g.message = "Floor saved"
+		g.messageFrames = 120 // Affiche le message pendant 60 FPS * 2
 	}
 
 	// Particule DEVANT le bonhomme

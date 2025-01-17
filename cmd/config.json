@@ -9,17 +9,22 @@
     "CameraMode": 1,
     "FloorKind": 2,
     "FloorFile": "../floor-files/terrain",
+
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
     "ExtRoundEarth": false,
+
     "ExtZoom": true,
     "MaxZoom": 16,
     "MinZoom": 4,
-    "ExtTeleportation": true,
+
+    
     "ExtBlockingBlocks": true,
     "BlockingBlocks": [4],
+    
+    "ExtTeleportation": true,
     "ExtRandomFloorGeneration": false,
-    "ExtFloorSave": false,
+    "ExtFloorSave": true,
     "ExtSpeedRun": false,
     "ExtWaterAnimation": true
 }

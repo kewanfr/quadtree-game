@@ -5,9 +5,11 @@ import (
 	"image/color"
 
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"golang.org/x/image/font/basicfont"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/text"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
@@ -19,6 +21,8 @@ var animation int
 // Il faut faire attention à l'ordre d'affichage pour éviter d'avoir
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
+
+
 	g.floor.Draw(screen, animation/120)
 	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
@@ -37,6 +41,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	animation++
 
+	if g.messageFrames > 0 {
+		text.Draw(screen, g.message, basicfont.Face7x13, 20,  screen.Bounds().Dy() - 20, color.White)
+	}
 }
 
 // drawDebug se charge d'afficher les informations de debug si

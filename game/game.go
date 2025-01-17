@@ -26,4 +26,7 @@ type Game struct {
 	Portals   []Portal
 	justTeleported  bool
 	particles []particles.Particle
+
+	message        string // Message à afficher
+	messageFrames int    // Nombre de frames pendant lesquelles le message est affiché
 }
