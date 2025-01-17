@@ -19,6 +19,7 @@ func (f *Floor) Init() {
 	var fileContent [][]int
 	if configuration.Global.ExtRandomFloorGeneration {
 		fileContent = generateRandomFloorContent()
+		f.fullContent = fileContent
 	} else {
 		fileContent = readFloorFromFile(configuration.Global.FloorFile)
 	}
