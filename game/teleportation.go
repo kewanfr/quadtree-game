@@ -11,6 +11,23 @@ import (
 )
 
 func (g *Game) TeleportTo(x, y int) {
+
+	blocking := g.floor.Blocking(x, y, g.camera.X, g.camera.Y)
+
+	fmt.Println(blocking)
+
+	if blocking[0] {
+		x = x + 1
+	} else if blocking[1] {
+		x = x - 1
+	} else if blocking[2] {
+		y = y + 1
+	} else if blocking[3] {
+		y = y - 1
+	}else {
+		x = x + 1
+	}
+	
 	g.character.X = x
 	g.character.Y = y
 	g.camera.Update(g.character.X, g.character.Y)
@@ -52,9 +69,11 @@ func (g *Game) UpdateTeleport() error {
 
 
 	if len(g.Portals) == 2 {
-		if (g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y ) {
+		if (g.Portals[0].X == g.character.X && g.Portals[0].Y == g.character.Y) {
 			g.TeleportTo(g.Portals[1].X, g.Portals[1].Y)
-		}
+		} else if (g.Portals[1].X == g.character.X && g.Portals[1].Y == g.character.Y) {
+			g.TeleportTo(g.Portals[0].X, g.Portals[0].Y)
+	}
 	}
 	return nil
 }
