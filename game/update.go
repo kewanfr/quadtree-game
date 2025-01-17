@@ -1,6 +1,8 @@
 package game
 
 import (
+	"log"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
@@ -24,7 +26,10 @@ func (g *Game) Update() error {
 	// Si on appuie sur la touche F5, on sauvegarde le terrain
 	if configuration.Global.ExtFloorSave && inpututil.IsKeyJustPressed(ebiten.KeyF5) {
 		g.floor.SaveFloor()
-		g.message = "Floor saved"
+		if configuration.Global.DebugMode {
+			log.Println("Terrain sauvegardé")
+		}
+		g.message = "File saved"
 		g.messageFrames = 120 // Affiche le message pendant 60 FPS * 2
 	}
 
