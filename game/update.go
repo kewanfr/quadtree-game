@@ -26,7 +26,8 @@ func (g *Game) Update() error {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
 
-			if !g.particles[i].Moving {
+			//Si la particule a atteint ça durée maximale, on le retire de la liste des particules active dans le jeu
+			if !g.particles[i].Alive {
 				g.particles = append(g.particles[:i], g.particles[i+1:]...)
 				i--
 			}

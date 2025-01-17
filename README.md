@@ -19,8 +19,7 @@ BERNIER Kéwan et GALLY Chianti
 
 - [x] Fonction [updateFromFileFloor](./floor/update.go#updateFromFileFloor)
 - [x] Fonction [MakeFromArray](./quadtree/make.go)
-- [] Extension 6.9 Affichage du terrain amélioré
-- [] Extension 6.10 Particules
+- [] Extension 6.10 Particules ([paquet particles](/particles))
 - [] Extension 6.11 La terre est ronde
 - [X] Extension 6.12 Zoom
 - [] Extension 6.3 Animation des décors

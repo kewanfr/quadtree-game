@@ -24,7 +24,8 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 						X:             c.X,
 						Y:             c.Y,
 						AnimationStep: 1,
-						Moving:        true,
+						Alive:         true,
+						Duration:      4,
 					})
 				}
 			}
@@ -38,7 +39,8 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 						X:             c.X,
 						Y:             c.Y,
 						AnimationStep: 1,
-						Moving:        true,
+						Alive:         true,
+						Duration:      4,
 					})
 				}
 			}
@@ -52,7 +54,8 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 						X:             c.X,
 						Y:             c.Y,
 						AnimationStep: 1,
-						Moving:        true,
+						Alive:         true,
+						Duration:      4,
 					})
 				}
 			}
@@ -66,7 +69,8 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 						X:             c.X,
 						Y:             c.Y,
 						AnimationStep: 1,
-						Moving:        true,
+						Alive:         true,
+						Duration:      4,
 					})
 				}
 			}

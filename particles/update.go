@@ -5,16 +5,16 @@ import (
 )
 
 func (p *Particle) Update() {
-	if p.Moving {
+	if p.Alive {
 		p.animationFrameCount++
 		if p.animationFrameCount >= configuration.Global.NumFramePerCharacterAnimImage {
 			p.animationFrameCount = 0
-			p.shift += 1
+			p.timeAlive += 1
 			p.AnimationStep = -p.AnimationStep
 
-			if p.shift > 4 {
-				p.shift = 0
-				p.Moving = false
+			if p.timeAlive > p.Duration {
+				p.timeAlive = 0
+				p.Alive = false
 			}
 		}
 	}

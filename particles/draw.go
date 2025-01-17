@@ -22,12 +22,10 @@ func (p Particle) Draw(screen *ebiten.Image, camX, camY int) {
 	op.GeoM.Translate(float64(xPos), float64(yPos))
 
 	shiftX := configuration.Global.TileSize
-	if p.Moving {
+	if p.Alive {
 		shiftX += p.AnimationStep * configuration.Global.TileSize
 	}
-	shiftY := 0 * configuration.Global.TileSize
-
 	screen.DrawImage(assets.DustImage.SubImage(
-		image.Rect(shiftX, shiftY, shiftX+configuration.Global.TileSize, shiftY+configuration.Global.TileSize),
+		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize),
 	).(*ebiten.Image), op)
 }
