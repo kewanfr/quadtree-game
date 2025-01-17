@@ -13,8 +13,10 @@ import (
 func (g *Game) TeleportTo(x, y int) {
 
 	blocking := g.floor.Blocking(x, y, g.camera.X, g.camera.Y)
-
-	fmt.Println(blocking)
+	
+	// Regarde si le personnage peut se déplacer sur la case souhaitée
+	// (Marche bien pour les bordures de la map, ou pour les blocking blocks si y'en a que 1)
+	// (Mais pas idéal si plusieurs blocking blocks sont côte à côte)
 
 	if blocking[0] {
 		x = x + 1
