@@ -1,14 +1,30 @@
 package game
 
+import (
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+)
+
 // Init initialise les données d'un jeu. Il faut bien
 // faire attention à l'ordre des initialisation car elles
 // pourraient dépendre les unes des autres.
 func (g *Game) Init() {
 	g.floor.Init()
-	g.character.Init(g.floor.GetWidth(), g.floor.GetHeight())
 
-
-
+	g.character.Init(configuration.Global.NumTileX,configuration.Global.NumTileY)
 	g.camera.Init(g.character.X, g.character.Y)
+	g.floor.Update(g.character.X, g.character.Y)
+
+	if (configuration.Global.ExtBlockingBlocks) {
+		
+		// Pour faire fonctionner l'extension, il faut que le terrain soit correctement initialisé
+		
+		// On cherche si on peut trouver une position de spawn non blocante pour le personnage
+		ok, posX, posY := g.floor.FindSpawn(g.character.X, g.character.Y, g.camera.X, g.camera.Y, make(map[[2]int]bool, 0))
+		if ok {
+			g.character.X = posX
+			g.character.Y = posY
+		}
+		
+	}
 
 }
