@@ -31,3 +31,20 @@ type Character struct {
 	shift               int
 	animationFrameCount int
 }
+
+
+func (c *Character) GetShiftValue() (int, int) {
+	xShift := 0
+	yShift := 0
+	switch c.orientation {
+	case orientedDown:
+		yShift = -c.shift
+	case orientedUp:
+		yShift = c.shift
+	case orientedLeft:
+		xShift = c.shift
+	case orientedRight:
+		xShift = -c.shift
+	}
+	return xShift, yShift
+}	
