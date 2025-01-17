@@ -44,19 +44,6 @@ func (f Floor) Blocking(characterXPos, characterYPos, camXPos, camYPos int) (blo
 	blocking[2] = relativeYPos >= configuration.Global.NumTileY-1 || f.content[relativeYPos+1][relativeXPos] == -1
 	blocking[3] = relativeXPos <= 0 || f.content[relativeYPos][relativeXPos-1] == -1
 
-	// if blocking[0] {
-	// 	randInt := rand.Intn(4)
-	// 	f.content[relativeYPos-1][relativeXPos] = randInt
-	// 	// posOnFullX := relativeXPos + camXPos - configuration.Global.ScreenCenterTileX
-	// 	// posOnFullY := relativeYPos - 1 + camYPos - configuration.Global.ScreenCenterTileY
-	// 	// f.quadtreeContent.SetOrAddContent(posOnFullX, posOnFullY, randInt)
-
-	// 	// f.quadtreeContent = quadtree.MakeFromArray(f.fullContent)
-
-
-		
-	// }
-
 	if configuration.Global.ExtBlockingBlocks {
 
 		// 0: top, 1: right, 2: bottom, 3: left
@@ -65,11 +52,6 @@ func (f Floor) Blocking(characterXPos, characterYPos, camXPos, camYPos int) (blo
 		blocking[2] = blocking[2] || f.IsBlockingBlock(f.content[relativeYPos+1][relativeXPos])
 		blocking[3] = blocking[3] || f.IsBlockingBlock(f.content[relativeYPos][relativeXPos-1])
 	}
-
-	// blocking[0] = f.IsBlockingPos(relativeXPos, relativeYPos-1)
-	// blocking[1] = f.IsBlockingPos(relativeXPos+1, relativeYPos)
-	// blocking[2] = f.IsBlockingPos(relativeXPos, relativeYPos+1)
-	// blocking[3] = f.IsBlockingPos(relativeXPos-1, relativeYPos)
 
 	return blocking
 }
