@@ -52,7 +52,6 @@ Sorties:
 
 **/
 func readFloorFromFile(fileName string) (floorContent [][]int) {
-	// TODO
 	var err error // Stocke l'erreur potentielle
 
 	// Le tableau pour stocker le terrain

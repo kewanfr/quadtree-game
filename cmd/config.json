@@ -8,7 +8,7 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/beaupasbeau",
+    "FloorFile": "../floor-files/floor",
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
     "ExtRoundEarth": true,
