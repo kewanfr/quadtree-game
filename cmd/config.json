@@ -1,14 +1,14 @@
 {
     "DebugMode": true,
-    "NumTileX": 10,
-    "NumTileY": 10,
+    "NumTileX": 9,
+    "NumTileY": 9,
     "TileSize": 16,
     "NumCharacterAnimImages": 4,
     "NumFramePerCharacterAnimImage": 5,
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/ile",
+    "FloorFile": "../floor-files/exemple",
 
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
@@ -26,5 +26,8 @@
     "ExtRandomFloorGeneration": false,
     "ExtFloorSave": true,
     "ExtSpeedRun": false,
-    "ExtWaterAnimation": true
+
+    "ExtFloorAnimation": true,
+    "ExtFloorAnimationDuration" : 120,
+    "ExtFloorMaxAnimationDuration": 120
 }

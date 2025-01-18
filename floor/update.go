@@ -16,6 +16,7 @@ import (
 func (f *Floor) Update(camXPos, camYPos int) {
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
+
 	switch configuration.Global.FloorKind {
 	case GridFloor:
 		f.updateGridFloor(topLeftX, topLeftY)
@@ -23,6 +24,21 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		f.updateFromFileFloor(topLeftX, topLeftY)
 	case QuadTreeFloor:
 		f.updateQuadtreeFloor(topLeftX, topLeftY)
+	}
+
+	// Gestion de l'animation du sol
+	if f.animCounter >= configuration.Global.ExtFloorMaxAnimationDuration {
+		f.animCounter = 0
+	} else {
+		f.animCounter++
+	}
+
+	if f.animCounter%configuration.Global.ExtFloorAnimationDuration == 0 {
+		if f.animStep == 4 {
+			f.animStep = 1
+		} else {
+			f.animStep++
+		}
 	}
 
 	if configuration.Global.ExtZoom {

@@ -49,19 +49,23 @@ type Configuration struct {
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
 
 	// Extensions à activer ou desactiver dans la configuration
-	ExtSmoothTerrain 							bool
-	ExtTeleportation  						bool
-	ExtZoom           						bool
-	MaxZoom           						int
-	MinZoom           						int
-	ExtRoundEarth     						bool
-	ExtBlockingBlocks 						bool
-	BlockingBlocks    						[]int
-	ExtRandomFloorGeneration			bool
-	ExtFloorSave 									bool
-	ExtSpeedRun										bool
-	ExtParticles      						bool
-	ExtWaterAnimation							bool
+	ExtSmoothTerrain         bool
+	ExtTeleportation         bool
+	ExtZoom                  bool
+	MaxZoom                  int
+	MinZoom                  int
+	ExtRoundEarth            bool
+	ExtBlockingBlocks        bool
+	BlockingBlocks           []int
+	ExtRandomFloorGeneration bool
+	ExtFloorSave             bool
+	ExtSpeedRun              bool
+	ExtParticles             bool
+
+	ExtFloorAnimation            bool
+	ExtFloorAnimationDuration    int // en nombre de frames
+	ExtFloorMaxAnimationDuration int // en nombre de frames
+
 }
 
 // Global est la variable qui contient la configuration

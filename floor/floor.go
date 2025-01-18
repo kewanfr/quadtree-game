@@ -21,8 +21,8 @@ type Floor struct {
 	// P2X, P2Y				int
 	// PortalStarted		bool
 	// PortalCreated		bool
-	updateCounter  	int
-
+	animCounter int // compteur de frame pour l'animation du sol
+	animStep    int // pas de l'animation
 }
 
 func (f Floor) GetFullContent() [][]int {
@@ -53,12 +53,10 @@ func (f Floor) GetWidth() (width int) {
 	return
 }
 
-func (f Floor) GetBlockContent(x, y int) (int) {
+func (f Floor) GetBlockContent(x, y int) int {
 	return f.content[x][y]
 }
 
-func (f Floor) GetContent() (content [][]int){
+func (f Floor) GetContent() (content [][]int) {
 	return f.content
 }
-
-
