@@ -8,7 +8,7 @@
     "NumTileForDebug": 6,
     "CameraMode": 1,
     "FloorKind": 2,
-    "FloorFile": "../floor-files/terrain",
+    "FloorFile": "../floor-files/ile",
 
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
