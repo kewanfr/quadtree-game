@@ -26,34 +26,30 @@ func (f *Floor) Init() {
 		fileContent = readFloorFromFile(configuration.Global.FloorFile)
 	}
 
-
-	if configuration.Global.ExtSmoothTerrain {
-		fileContent = SmoothTerrain(fileContent)
-	}
-
 	switch configuration.Global.FloorKind {
 	case FromFileFloor:
 		f.fullContent = fileContent
 	case QuadTreeFloor:
 		f.quadtreeContent = quadtree.MakeFromArray(fileContent)
+	default:
+		panic("Type de sol invalide")
 	}
 }
 
-
-// lecture du contenu d'un fichier représentant un terrain
-// pour le stocker dans un tableau
-/**
+/*
+*
 readFloorFromFile lit le contenu d'un fichier de terrain et en génère un tableau en 2 dimensions représentant le terrain.
 
 Entrées:
 - fileName: le nom du fichier à lire (dans le dossier floor-files)
 
 Sorties:
-- floorContent: tableau en 2 dimensions de int représentant les cases du terrain (les valeurs sont entre -1 et 4 pour le terrain de l'exemple)
-	-1: en dehors du terrain, la case est pas accessible
-	Au dessus de 0: un type de sol
+  - floorContent: tableau en 2 dimensions de int représentant les cases du terrain (les valeurs sont entre -1 et 4 pour le terrain de l'exemple)
+    -1: en dehors du terrain, la case est pas accessible
+    Au dessus de 0: un type de sol
 
-**/
+*
+*/
 func readFloorFromFile(fileName string) (floorContent [][]int) {
 	var err error // Stocke l'erreur potentielle
 
