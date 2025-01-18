@@ -41,7 +41,7 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		les coordonnées du coin supérieur gauche de la zone à représenter,
 		ainsi que sa largeur et sa hauteur.
 
-		Elle s'arrête lorsqu'un node a pour dimension 1x1 contient une valeur à 0 dans ses dimensions.
+		Elle s'arrête lorsqu'un node a pour dimension 1x1 ou contient une valeur à 0 dans ses dimensions.
 
 		Paramètres :
 		- floorContent : [][]int - Le contenu du terrain, représenté par un tableau 2D d'entiers.
