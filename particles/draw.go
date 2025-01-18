@@ -9,9 +9,11 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-/**
+/*
+*
 Draw dessine les particules sur l'écran
-**/
+*
+*/
 func (p Particle) Draw(screen *ebiten.Image, camX, camY int) {
 	xShift := 0
 	yShift := 0
@@ -29,9 +31,23 @@ func (p Particle) Draw(screen *ebiten.Image, camX, camY int) {
 
 	shiftX := configuration.Global.TileSize
 	if p.Alive {
-		shiftX += p.AnimationStep * configuration.Global.TileSize
+		shiftX = p.AnimationStep * configuration.Global.TileSize
 	}
-	screen.DrawImage(assets.DustImage.SubImage(
+
+	var particleImage *ebiten.Image
+
+	switch p.Type {
+	case 0:
+		particleImage = assets.DustGrassImage
+	case 1:
+		particleImage = assets.DustSandImage
+	case 3:
+		particleImage = assets.DustWoodImage
+	default:
+		particleImage = assets.DustImage
+	}
+
+	screen.DrawImage(particleImage.SubImage(
 		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize),
 	).(*ebiten.Image), op)
 }

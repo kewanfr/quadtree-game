@@ -33,7 +33,7 @@ func (g *Game) Update() error {
 		g.messageFrames = 120 // Affiche le message pendant 60 FPS * 2
 	}
 
-	// Particule DEVANT le bonhomme
+	// Particule AVANT le bonhomme
 	if configuration.Global.ExtParticles {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
@@ -49,10 +49,22 @@ func (g *Game) Update() error {
 	// g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
 
 	blocking := g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y)
-	g.character.Update(blocking, &g.particles)
+
+	var currentTile int
+
+	relativeXPos := g.character.X - g.camera.X + configuration.Global.ScreenCenterTileX
+	relativeYPos := g.character.Y - g.camera.Y + configuration.Global.ScreenCenterTileY
+
+	if relativeXPos >= 0 && relativeXPos < len(g.floor.GetContent()[0]) && relativeYPos >= 0 && relativeYPos < len(g.floor.GetContent()) {
+		currentTile = g.floor.GetContent()[relativeYPos][relativeXPos]
+	} else {
+		currentTile = -1
+	}
+
+	g.character.Update(blocking, &g.particles, currentTile)
 
 	if configuration.Global.ExtSpeedRun {
-		g.character.Update(blocking, &g.particles)
+		g.character.Update(blocking, &g.particles, currentTile)
 	}
 
 	g.camera.Update(g.character.X, g.character.Y)

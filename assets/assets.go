@@ -35,7 +35,19 @@ var CharacterImage *ebiten.Image
 //go:embed particles/dust.png
 var dustBytes []byte
 
+//go:embed particles/dust_grass.png
+var dustGrassBytes []byte
+
+//go:embed particles/dust_sand.png
+var dustSandBytes []byte
+
+//go:embed particles/dust_wood.png
+var dustWoodBytes []byte
+
 var DustImage *ebiten.Image
+var DustGrassImage *ebiten.Image
+var DustSandImage *ebiten.Image
+var DustWoodImage *ebiten.Image
 
 //go:embed teleporter.png
 var teleporterBytes []byte
@@ -51,7 +63,6 @@ var Teleporter_endImage *ebiten.Image
 var waterBytes []byte
 
 var WaterImage *ebiten.Image
-
 
 // Load est la fonction en charge de transformer, à l'exécution du programme,
 // les images du jeu en structures de données compatibles avec Ebitengine.
@@ -92,4 +103,23 @@ func Load() {
 		log.Fatal(err)
 	}
 	DustImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(dustGrassBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	DustGrassImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(dustWoodBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	DustWoodImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(dustSandBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	DustSandImage = ebiten.NewImageFromImage(decoded)
+
 }

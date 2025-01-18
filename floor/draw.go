@@ -12,11 +12,6 @@ import (
 // Draw affiche dans une image (en général, celle qui représente l'écran),
 // la partie du sol qui est visible (qui doit avoir été calculée avec Get avant).
 func (f Floor) Draw(screen *ebiten.Image) {
-	// // Effectuer une action toutes les 2 updates (modifiable)
-	// if f.updateCounter%2 == 0 {
-	// 	fmt.Println("Action effectuée à update :", f.updateCounter)
-	// }
-
 	for y := range f.content {
 		for x := range f.content[y] {
 			if f.content[y][x] != -1 {

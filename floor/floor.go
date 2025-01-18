@@ -36,19 +36,36 @@ const (
 	QuadTreeFloor            // 2
 )
 
-// GetHeight retourne la hauteur (en cases) du terrain
+// GetHeightFullContent retourne la hauteur (en cases) du terrain
 // à partir du tableau fullContent, en supposant que
 // ce tableau représente un terrain rectangulaire
-func (f Floor) GetHeight() (height int) {
+func (f Floor) GetHeightFullContent() (height int) {
 	return len(f.fullContent)
 }
 
-// GetWidth retourne la largeur (en cases) du terrain
+// GetWidthFullContent retourne la largeur (en cases) du terrain
 // à partir du tableau fullContent, en supposant que
 // ce tableau représente un terrain rectangulaire
-func (f Floor) GetWidth() (width int) {
+func (f Floor) GetWidthFullContent() (width int) {
 	if len(f.fullContent) > 0 {
 		width = len(f.fullContent[0])
+	}
+	return
+}
+
+// GetBlockFullContent retourne la largeur (en cases) du terrain
+// à partir du tableau content, en supposant que
+// ce tableau représente un terrain rectangulaire
+func (f Floor) GetHeightContent() (height int) {
+	return len(f.content)
+}
+
+// GetWidthContent retourne la largeur (en cases) du terrain
+// à partir du tableau content, en supposant que
+// ce tableau représente un terrain rectangulaire
+func (f Floor) GetWidthContent() (width int) {
+	if len(f.content) > 0 {
+		width = len(f.content[0])
 	}
 	return
 }

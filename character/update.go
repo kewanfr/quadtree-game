@@ -11,7 +11,7 @@ import (
 // Update met à jour la position du personnage, son orientation
 // et son étape d'animation (si nécessaire) à chaque pas
 // de temps, c'est-à-dire tous les 1/60 secondes.
-func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle) {
+func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle, currentTile int) {
 
 	if !c.moving {
 		if ebiten.IsKeyPressed(ebiten.KeyRight) {
@@ -20,13 +20,7 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 				c.xInc = 1
 				c.moving = true
 				if configuration.Global.ExtParticles {
-					*particlesList = append(*particlesList, particles.Particle{
-						X:             c.X,
-						Y:             c.Y,
-						AnimationStep: 1,
-						Alive:         true,
-						Duration:      4,
-					})
+					addParticle(c, particlesList, currentTile)
 				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyLeft) {
@@ -35,13 +29,7 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 				c.xInc = -1
 				c.moving = true
 				if configuration.Global.ExtParticles {
-					*particlesList = append(*particlesList, particles.Particle{
-						X:             c.X,
-						Y:             c.Y,
-						AnimationStep: 1,
-						Alive:         true,
-						Duration:      4,
-					})
+					addParticle(c, particlesList, currentTile)
 				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyUp) {
@@ -50,13 +38,7 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 				c.yInc = -1
 				c.moving = true
 				if configuration.Global.ExtParticles {
-					*particlesList = append(*particlesList, particles.Particle{
-						X:             c.X,
-						Y:             c.Y,
-						AnimationStep: 1,
-						Alive:         true,
-						Duration:      4,
-					})
+					addParticle(c, particlesList, currentTile)
 				}
 			}
 		} else if ebiten.IsKeyPressed(ebiten.KeyDown) {
@@ -65,13 +47,7 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 				c.yInc = 1
 				c.moving = true
 				if configuration.Global.ExtParticles {
-					*particlesList = append(*particlesList, particles.Particle{
-						X:             c.X,
-						Y:             c.Y,
-						AnimationStep: 1,
-						Alive:         true,
-						Duration:      4,
-					})
+					addParticle(c, particlesList, currentTile)
 				}
 			}
 		}
@@ -93,4 +69,16 @@ func (c *Character) Update(blocking [4]bool, particlesList *[]particles.Particle
 		}
 	}
 
+}
+
+func addParticle(c *Character, particlesList *[]particles.Particle, currentTile int) {
+	*particlesList = append(*particlesList, particles.Particle{
+		X:                 c.X,
+		Y:                 c.Y,
+		AnimationStep:     1,
+		Alive:             true,
+		StepDuration:      10,
+		AnimationDuration: 30,
+		Type:              currentTile,
+	})
 }
