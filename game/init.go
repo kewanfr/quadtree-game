@@ -10,7 +10,7 @@ import (
 func (g *Game) Init() {
 	g.floor.Init()
 
-	g.character.Init(configuration.Global.NumTileX, configuration.Global.NumTileY)
+	g.character.Init(g.floor.GetWidth(), g.floor.GetHeight())
 	g.camera.Init(g.character.X, g.character.Y)
 	g.floor.Update(g.character.X, g.character.Y)
 
