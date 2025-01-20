@@ -20,7 +20,6 @@ import (
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
 	if g.CurrentState == 0 {
-
 		g.floor.Draw(screen)
 
 		if configuration.Global.ExtTeleportation {

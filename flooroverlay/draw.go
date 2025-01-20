@@ -28,8 +28,11 @@ func (p TileOverlay) Draw(screen *ebiten.Image, camX, camY int) {
 		img = assets.FlowerImage
 	case 2:
 		img = assets.BuissonImage
+	default:
+		img = assets.WaterImage
 	}
+
 	screen.DrawImage(img.SubImage(
-		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize),
+		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize).Bounds(),
 	).(*ebiten.Image), op)
 }

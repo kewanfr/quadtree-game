@@ -3,7 +3,7 @@ package flooroverlay
 func (p *TileOverlay) Update() {
 	p.animationFrameCount++
 
-	if p.AnimationStep >= 4 {
+	if p.AnimationStep == 3 {
 		p.AnimationStep = 0
 	}
 
