@@ -16,8 +16,8 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 		screenWidth += configuration.Global.NumTileForDebug * configuration.Global.TileSize
 		screenHeight += configuration.Global.TileSize
 	} else if g.CurrentState == 1 {
-		screenWidth += assets.TitleImage.Bounds().Dx()
-		screenHeight += assets.TitleImage.Bounds().Dy()
+		screenWidth = assets.TitleImage.Bounds().Dx()
+		screenHeight = assets.TitleImage.Bounds().Dy()
 	}
 	return
 }
