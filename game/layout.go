@@ -1,6 +1,9 @@
 package game
 
-import "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+import (
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/assets"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+)
 
 // Layout détermine la taille de l'image sur laquelle Ebitengine
 // affiche les images du jeu en fonction de la taille de la fenêtre
@@ -12,6 +15,9 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 	if configuration.Global.DebugMode {
 		screenWidth += configuration.Global.NumTileForDebug * configuration.Global.TileSize
 		screenHeight += configuration.Global.TileSize
+	} else if g.CurrentState == 1 {
+		screenWidth += assets.TitleImage.Bounds().Dx() / 8
+		screenHeight += assets.TitleImage.Bounds().Dy() / 8
 	}
 	return
 }

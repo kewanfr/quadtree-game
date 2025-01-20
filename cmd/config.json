@@ -1,5 +1,5 @@
 {
-    "DebugMode": true,
+    "DebugMode": false,
     "NumTileX": 9,
     "NumTileY": 9,
     "TileSize": 16,
