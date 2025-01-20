@@ -22,7 +22,7 @@ BERNIER Kéwan et GALLY Chianti
 
 - [x] Fonction [updateFromFileFloor](./floor/update.go#updateFromFileFloor)
 - [x] Fonction [MakeFromArray](./quadtree/make.go)
-- [] Extension 6.10 Particules ([paquet particles](/particles))
-- [] Extension 6.11 La terre est ronde
-- [X] Extension 6.12 Zoom
-- [] Extension 6.3 Animation des décors (implémentation des surcouches pour les brins d'herbes, etc.)
+- [X] Extension 6.10 Particules ([paquet particles](/particles), [game/update.go](./game/update.go), [game/draw.go](./game/draw.go), [character/update.go](./character/update.go))
+- [X] Extension 6.12 Zoom (fichiers: ([game/update.go](./game/update.go))
+- [X] Extension 6.3 Animation des décors (implémentation des surcouches pour des fleurs, buisson, etc.) (fichiers: [floor/init.go](./floor/init.go), [paquet flooroverlay](./flooroverlay))
+- [X] Extension Bonus : Menu de démarrage (fichiers: [cmd/main.go](./cmd/main.go), [game/game.go](./game/game.go), [game/update.go](./game/update.go), [game/draw.go](./game/draw.go), [game/draw.go](./game/draw.go))

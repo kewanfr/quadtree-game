@@ -15,6 +15,12 @@ import (
 // du terrain dépend de celle de la caméra).
 func (g *Game) Update() error {
 
+	if g.CurrentState == 1 {
+		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+			g.CurrentState = 0
+		}
+	}
+
 	if inpututil.IsKeyJustPressed(ebiten.KeyD) {
 		configuration.Global.DebugMode = !configuration.Global.DebugMode
 	}

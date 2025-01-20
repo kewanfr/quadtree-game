@@ -33,23 +33,17 @@ func (f *Floor) Init(overlay *[]flooroverlay.TileOverlay) {
 	if configuration.Global.ExtFloorAnimation {
 		for i, ints := range fileContent {
 			for j, v := range ints {
-				// On ajoute un overlay de fleurs ou d'herbes aléatoirement sur les cases d'herbes
-				if v == 0 && rand.Float32() < 0.5 {
-					*overlay = append(*overlay, flooroverlay.TileOverlay{
-						X:                 j,
-						Y:                 i,
-						StepDuration:      120,
-						AnimationDuration: 120,
-						Type:              1,
-					})
-				} else if v == 0 && rand.Float32() < 0.5 {
-					*overlay = append(*overlay, flooroverlay.TileOverlay{
-						X:                 j,
-						Y:                 i,
-						StepDuration:      120,
-						AnimationDuration: 120,
-						Type:              2,
-					})
+				// On ajoute un overlay de fleurs ou de buissons aléatoirement sur les cases d'herbes
+				if v == 0 {
+					if rand.Float32() < 0.5 {
+						*overlay = append(*overlay, flooroverlay.TileOverlay{
+							X: j, Y: i, StepDuration: 120, AnimationDuration: 120, Type: 1,
+						})
+					} else if rand.Float32() < 0.60 {
+						*overlay = append(*overlay, flooroverlay.TileOverlay{
+							X: j, Y: i, StepDuration: 120, AnimationDuration: 120, Type: 2,
+						})
+					}
 				}
 			}
 		}

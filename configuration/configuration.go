@@ -66,6 +66,7 @@ type Configuration struct {
 	ExtFloorAnimationDuration    int // en nombre de frames
 	ExtFloorMaxAnimationDuration int // en nombre de frames
 
+	ExtTitleScreen bool
 }
 
 // Global est la variable qui contient la configuration

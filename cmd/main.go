@@ -24,6 +24,12 @@ func main() {
 	assets.Load()
 
 	g := &game.Game{}
+
+	//Menu principal activé selon la config
+	if configuration.Global.ExtTitleScreen {
+		g.CurrentState = 1
+	}
+
 	g.Init()
 
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)

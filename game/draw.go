@@ -2,6 +2,7 @@ package game
 
 import (
 	"fmt"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/assets"
 	"image/color"
 
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
@@ -18,35 +19,64 @@ import (
 // Il faut faire attention à l'ordre d'affichage pour éviter d'avoir
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.floor.Draw(screen)
+	if g.CurrentState == 0 {
 
-	if configuration.Global.ExtTeleportation {
-		g.DrawTeleport(screen, g.camera.X, g.camera.Y)
-	}
+		g.floor.Draw(screen)
 
-	if configuration.Global.ExtParticles {
-		for _, particle := range g.particles {
-			particle.Draw(screen, g.camera.X, g.camera.Y)
+		if configuration.Global.ExtTeleportation {
+			g.DrawTeleport(screen, g.camera.X, g.camera.Y)
 		}
-	}
 
-	if configuration.Global.ExtFloorAnimation {
-		for _, overlay := range g.tileOverlays {
-			// On ne dessine que les overlays qui sont dans la zone de la caméra
-			if overlay.Y >= g.camera.Y-configuration.Global.ScreenCenterTileY && overlay.Y <= g.camera.Y+configuration.Global.ScreenCenterTileY && overlay.X >= g.camera.X-configuration.Global.ScreenCenterTileX && overlay.X <= g.camera.X+configuration.Global.ScreenCenterTileX {
-				overlay.Draw(screen, g.camera.X, g.camera.Y)
+		if configuration.Global.ExtParticles {
+			for _, particle := range g.particles {
+				particle.Draw(screen, g.camera.X, g.camera.Y)
 			}
 		}
+
+		if configuration.Global.ExtFloorAnimation {
+			for _, overlay := range g.tileOverlays {
+				// On ne dessine que les overlays qui sont dans la zone de la caméra
+				if overlay.Y >= g.camera.Y-configuration.Global.ScreenCenterTileY && overlay.Y <= g.camera.Y+configuration.Global.ScreenCenterTileY && overlay.X >= g.camera.X-configuration.Global.ScreenCenterTileX && overlay.X <= g.camera.X+configuration.Global.ScreenCenterTileX {
+					overlay.Draw(screen, g.camera.X, g.camera.Y)
+				}
+			}
+		}
+
+		g.character.Draw(screen, g.camera.X, g.camera.Y)
+
+		if configuration.Global.DebugMode {
+			g.drawDebug(screen)
+		}
+
+		if g.messageFrames > 0 {
+			text.Draw(screen, g.message, basicfont.Face7x13, 20, screen.Bounds().Dy()-20, color.White)
+		}
+	} else if g.CurrentState == 1 {
+		g.drawTitleScreen(screen)
+	}
+}
+
+func (g Game) drawTitleScreen(screen *ebiten.Image) {
+	startButton := "Appuyez sur Espace!"
+	keys := []string{
+		"Fleches - Deplacement",
+		"T - Placer un portail",
+		") - Dezoomer    = - Zoomer",
+		"F5 - Sauvegarder la carte",
+		"D - DebugMode",
 	}
 
-	g.character.Draw(screen, g.camera.X, g.camera.Y)
+	//Image de fond
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Scale(float64(screen.Bounds().Dx())/float64(assets.TitleImage.Bounds().Dx()), float64(screen.Bounds().Dy())/float64(assets.TitleImage.Bounds().Dy()))
+	screen.DrawImage(assets.TitleImage, op)
 
-	if configuration.Global.DebugMode {
-		g.drawDebug(screen)
-	}
+	// Invite pour lancer le jeu
+	text.Draw(screen, startButton, basicfont.Face7x13, screen.Bounds().Dx()/3-len(startButton)*2, screen.Bounds().Dy()/3, color.RGBA{255, 0, 0, 255})
 
-	if g.messageFrames > 0 {
-		text.Draw(screen, g.message, basicfont.Face7x13, 20, screen.Bounds().Dy()-20, color.White)
+	// Liste des touches
+	for i, key := range keys {
+		text.Draw(screen, key, basicfont.Face7x13, screen.Bounds().Dx()/3-len(key)*2, screen.Bounds().Dy()/3+20*(i+1), color.Black)
 	}
 }
 

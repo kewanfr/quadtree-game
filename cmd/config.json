@@ -29,5 +29,7 @@
 
     "ExtFloorAnimation": true,
     "ExtFloorAnimationDuration" : 120,
-    "ExtFloorMaxAnimationDuration": 120
+    "ExtFloorMaxAnimationDuration": 120,
+
+    "ExtTitleScreen": true
 }
