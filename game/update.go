@@ -16,11 +16,11 @@ import (
 func (g *Game) Update() error {
 
 	if g.CurrentState == 1 {
-		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
 			g.CurrentState = 0
 		}
 	} else {
-		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
 			g.CurrentState = 1
 		}
 	}
