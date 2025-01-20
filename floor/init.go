@@ -50,6 +50,8 @@ func (f *Floor) Init(overlay *[]flooroverlay.TileOverlay) {
 	}
 
 	switch configuration.Global.FloorKind {
+	case GridFloor:
+		f.updateGridFloor(0, 0)
 	case FromFileFloor:
 		f.fullContent = fileContent
 	case QuadTreeFloor:

@@ -17,6 +17,38 @@ func (f *Floor) Update(camXPos, camYPos int) {
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
 
+	//on vérifie si l'utilisateur veut zoomer ou dézoomer pour éviter des problèmes avec la mise à jour du floor
+	if configuration.Global.ExtZoom {
+		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
+			configuration.Global.NumTileX++
+			configuration.Global.NumTileY++
+
+			configuration.SetComputedFields()
+
+			f.content = make([][]int, configuration.Global.NumTileY)
+			for y := 0; y < len(f.content); y++ {
+				f.content[y] = make([]int, configuration.Global.NumTileX)
+			}
+		}
+
+		//hard limit à 6 pour éviter tout problème avec blocking.go
+		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
+			configuration.Global.NumTileX--
+			configuration.Global.NumTileY--
+
+			configuration.Global.ScreenCenterTileX /= 2
+			configuration.Global.ScreenCenterTileY /= 2
+
+			configuration.SetComputedFields() // update l'ui
+
+			f.content = make([][]int, configuration.Global.NumTileY)
+			for y := 0; y < len(f.content); y++ {
+				f.content[y] = make([]int, configuration.Global.NumTileX)
+			}
+		}
+
+	}
+
 	switch configuration.Global.FloorKind {
 	case GridFloor:
 		f.updateGridFloor(topLeftX, topLeftY)
@@ -39,34 +71,6 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		} else {
 			f.animStep++
 		}
-	}
-
-	if configuration.Global.ExtZoom {
-		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
-			configuration.Global.NumTileX += 1
-			configuration.Global.NumTileY += 1
-
-			configuration.SetComputedFields()
-
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
-		}
-
-		//hard limit à 6 pour éviter tout problème avec blocking.go
-		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
-			configuration.Global.NumTileX -= 1
-			configuration.Global.NumTileY -= 1
-
-			configuration.SetComputedFields() // update l'ui
-
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
-		}
-
 	}
 
 }
