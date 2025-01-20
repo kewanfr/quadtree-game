@@ -57,27 +57,30 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func (g Game) drawTitleScreen(screen *ebiten.Image) {
-	startButton := "Appuyez sur Espace!"
+	/*startButton := "Appuyez sur Espace!"
 	keys := []string{
 		"Fleches - Deplacement",
 		"T - Placer un portail",
 		") - Dezoomer    = - Zoomer",
 		"F5 - Sauvegarder la carte",
 		"D - DebugMode",
-	}
+	}*/
 
 	//Image de fond
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Scale(float64(screen.Bounds().Dx())/float64(assets.TitleImage.Bounds().Dx()), float64(screen.Bounds().Dy())/float64(assets.TitleImage.Bounds().Dy()))
 	screen.DrawImage(assets.TitleImage, op)
 
-	// Invite pour lancer le jeu
-	text.Draw(screen, startButton, basicfont.Face7x13, screen.Bounds().Dx()/3-len(startButton)*2, screen.Bounds().Dy()/3, color.RGBA{255, 0, 0, 255})
+	/*
+		// Invite pour lancer le jeu
+		text.Draw(screen, startButton, basicfont.Face7x13, screen.Bounds().Dx()/3-len(startButton)*2, screen.Bounds().Dy()/3, color.RGBA{255, 0, 0, 255})
 
-	// Liste des touches
-	for i, key := range keys {
-		text.Draw(screen, key, basicfont.Face7x13, screen.Bounds().Dx()/3-len(key)*2, screen.Bounds().Dy()/3+20*(i+1), color.Black)
-	}
+		// Liste des touches
+		for i, key := range keys {
+			text.Draw(screen, key, basicfont.Face7x13, screen.Bounds().Dx()/3-len(key)*2, screen.Bounds().Dy()/3+20*(i+1), color.Black)
+		}
+
+	*/
 }
 
 // drawDebug se charge d'afficher les informations de debug si
