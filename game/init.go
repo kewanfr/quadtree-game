@@ -15,7 +15,6 @@ func (g *Game) Init() {
 	g.floor.Update(g.character.X, g.character.Y)
 
 	if configuration.Global.ExtBlockingBlocks {
-
 		// Pour faire fonctionner l'extension, il faut que le terrain soit correctement initialisé
 
 		// On cherche si on peut trouver une position de spawn non blocante pour le personnage
@@ -24,7 +23,6 @@ func (g *Game) Init() {
 			g.character.X = posX
 			g.character.Y = posY
 		}
-
 	}
 
 	// Par défaut, on considère que le joueur vient d'être téléporté

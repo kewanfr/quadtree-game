@@ -11,7 +11,7 @@ package particles
 	   - animationFrameCount : le nombre de frames depuis la dernière étape d'animation
 	   - StepDuration : la durée d'une étape d'animation
 	   - AnimationDuration : la durée totale de l'animation
-	   - Type : le type de sol
+	   - Type : le type de sol sur lequel la particule est posée
 
 *
 */

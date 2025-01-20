@@ -15,6 +15,7 @@ import (
 // du terrain dépend de celle de la caméra).
 func (g *Game) Update() error {
 
+	//Gestion du menu principal/pause
 	if g.CurrentState == 1 {
 		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 			g.CurrentState = 0

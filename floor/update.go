@@ -17,34 +17,20 @@ func (f *Floor) Update(camXPos, camYPos int) {
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
 
-	//on vérifie si l'utilisateur veut zoomer ou dézoomer pour éviter des problèmes avec la mise à jour du floor
+	//on vérifie si l'utilisateur veut zoomer ou dézoomer avant tout autre calcul pour éviter des problèmes
 	if configuration.Global.ExtZoom {
 		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
 			configuration.Global.NumTileX++
 			configuration.Global.NumTileY++
 
-			configuration.SetComputedFields()
-
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
+			f.updateZoom()
 		}
 
-		//hard limit à 6 pour éviter tout problème avec blocking.go
 		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
 			configuration.Global.NumTileX--
 			configuration.Global.NumTileY--
 
-			configuration.Global.ScreenCenterTileX /= 2
-			configuration.Global.ScreenCenterTileY /= 2
-
-			configuration.SetComputedFields() // update l'ui
-
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
+			f.updateZoom()
 		}
 
 	}
@@ -73,6 +59,19 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		}
 	}
 
+}
+
+func (f *Floor) updateZoom() {
+	configuration.Global.ScreenCenterTileX /= 2
+	configuration.Global.ScreenCenterTileY /= 2
+
+	configuration.SetComputedFields() // update l'ui
+
+	// on recrée le tableau de sol
+	f.content = make([][]int, configuration.Global.NumTileY)
+	for y := 0; y < len(f.content); y++ {
+		f.content[y] = make([]int, configuration.Global.NumTileX)
+	}
 }
 
 // le sol est un quadrillage de tuiles d'herbe et de tuiles de désert

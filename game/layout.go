@@ -16,6 +16,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 		screenWidth += configuration.Global.NumTileForDebug * configuration.Global.TileSize
 		screenHeight += configuration.Global.TileSize
 	} else if g.CurrentState == 1 {
+		// Dans le cas où on est dans le menu principal, on ajuste la taille de l'écran à celle de l'image du menu
 		screenWidth = assets.TitleImage.Bounds().Dx()
 		screenHeight = assets.TitleImage.Bounds().Dy()
 	}

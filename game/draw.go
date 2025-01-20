@@ -35,7 +35,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		if configuration.Global.ExtFloorAnimation {
 			for _, overlay := range g.tileOverlays {
 				// On ne dessine que les overlays qui sont dans la zone de la caméra
-				if overlay.Y >= g.camera.Y-configuration.Global.ScreenCenterTileY && overlay.Y <= g.camera.Y+configuration.Global.ScreenCenterTileY && overlay.X >= g.camera.X-configuration.Global.ScreenCenterTileX && overlay.X <= g.camera.X+configuration.Global.ScreenCenterTileX {
+				if overlay.X >= g.camera.X-configuration.Global.ScreenCenterTileX && overlay.X <= g.camera.X+configuration.Global.ScreenCenterTileX && overlay.Y >= g.camera.Y-configuration.Global.ScreenCenterTileY && overlay.Y <= g.camera.Y+configuration.Global.ScreenCenterTileY {
 					overlay.Draw(screen, g.camera.X, g.camera.Y)
 				}
 			}
