@@ -64,6 +64,18 @@ var waterBytes []byte
 
 var WaterImage *ebiten.Image
 
+// OVERLAY
+//
+//go:embed overlay/flower.png
+var flowerBytes []byte
+
+var FlowerImage *ebiten.Image
+
+//go:embed overlay/herbe.png
+var herbeBytes []byte
+
+var HerbeImage *ebiten.Image
+
 // Load est la fonction en charge de transformer, à l'exécution du programme,
 // les images du jeu en structures de données compatibles avec Ebitengine.
 // Ces structures de données sont stockées dans les variables définies ci-dessus.
@@ -121,5 +133,17 @@ func Load() {
 		log.Fatal(err)
 	}
 	DustSandImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(flowerBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	FlowerImage = ebiten.NewImageFromImage(decoded)
+
+	decoded, _, err = image.Decode(bytes.NewReader(herbeBytes))
+	if err != nil {
+		log.Fatal(err)
+	}
+	HerbeImage = ebiten.NewImageFromImage(decoded)
 
 }

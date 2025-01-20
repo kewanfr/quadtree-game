@@ -19,7 +19,6 @@ import (
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
 	g.floor.Draw(screen)
-	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
 	if configuration.Global.ExtTeleportation {
 		g.DrawTeleport(screen, g.camera.X, g.camera.Y)
@@ -30,6 +29,17 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			particle.Draw(screen, g.camera.X, g.camera.Y)
 		}
 	}
+
+	if configuration.Global.ExtFloorAnimation {
+		for _, overlay := range g.tileOverlays {
+			// On ne dessine que les overlays qui sont dans la zone de la caméra
+			if overlay.Y >= g.camera.Y-configuration.Global.ScreenCenterTileY && overlay.Y <= g.camera.Y+configuration.Global.ScreenCenterTileY && overlay.X >= g.camera.X-configuration.Global.ScreenCenterTileX && overlay.X <= g.camera.X+configuration.Global.ScreenCenterTileX {
+				overlay.Draw(screen, g.camera.X, g.camera.Y)
+			}
+		}
+	}
+
+	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
 	if configuration.Global.DebugMode {
 		g.drawDebug(screen)

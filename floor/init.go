@@ -2,6 +2,8 @@ package floor
 
 import (
 	"bufio"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/flooroverlay"
+	"math/rand"
 	"os"
 	"strconv"
 
@@ -10,7 +12,7 @@ import (
 )
 
 // Init initialise les structures de données internes de f.
-func (f *Floor) Init() {
+func (f *Floor) Init(overlay *[]flooroverlay.TileOverlay) {
 	f.animStep = 1
 	f.content = make([][]int, configuration.Global.NumTileY)
 	for y := 0; y < len(f.content); y++ {
@@ -25,6 +27,32 @@ func (f *Floor) Init() {
 		f.fullContent = fileContent
 	} else {
 		fileContent = readFloorFromFile(configuration.Global.FloorFile)
+	}
+
+	// Si on veut générer des animations de sol, on ajoute des overlays correspondants à des animations superposées au sol
+	if configuration.Global.ExtFloorAnimation {
+		for i, ints := range fileContent {
+			for j, v := range ints {
+				// On ajoute un overlay de fleurs ou d'herbes aléatoirement sur les cases d'herbes
+				if v == 0 && rand.Float32() < 0.5 {
+					*overlay = append(*overlay, flooroverlay.TileOverlay{
+						X:                 j,
+						Y:                 i,
+						StepDuration:      120,
+						AnimationDuration: 120,
+						Type:              1,
+					})
+				} else if v == 0 && rand.Float32() < 0.5 {
+					*overlay = append(*overlay, flooroverlay.TileOverlay{
+						X:                 j,
+						Y:                 i,
+						StepDuration:      120,
+						AnimationDuration: 120,
+						Type:              2,
+					})
+				}
+			}
+		}
 	}
 
 	switch configuration.Global.FloorKind {

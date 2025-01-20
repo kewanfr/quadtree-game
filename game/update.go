@@ -33,7 +33,6 @@ func (g *Game) Update() error {
 		g.messageFrames = 120 // Affiche le message pendant 60 FPS * 2
 	}
 
-	// Particule AVANT le bonhomme
 	if configuration.Global.ExtParticles {
 		for i := 0; i < len(g.particles); i++ {
 			g.particles[i].Update()
@@ -43,6 +42,12 @@ func (g *Game) Update() error {
 				g.particles = append(g.particles[:i], g.particles[i+1:]...)
 				i--
 			}
+		}
+	}
+
+	if configuration.Global.ExtFloorAnimation {
+		for i := 0; i < len(g.tileOverlays); i++ {
+			g.tileOverlays[i].Update()
 		}
 	}
 

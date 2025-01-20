@@ -4,6 +4,7 @@ import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/camera"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/character"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/floor"
+	"gitlab.univ-nantes.fr/jezequel-l/quadtree/flooroverlay"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/particles"
 )
 
@@ -20,13 +21,14 @@ type Portal struct {
 }
 
 type Game struct {
-	camera    camera.Camera
-	floor     floor.Floor
-	character character.Character
-	Portals   []Portal
-	justTeleported  bool
-	particles []particles.Particle
+	camera         camera.Camera
+	floor          floor.Floor
+	character      character.Character
+	Portals        []Portal
+	justTeleported bool
+	particles      []particles.Particle
+	tileOverlays   []flooroverlay.TileOverlay
 
-	message        string // Message à afficher
+	message       string // Message à afficher
 	messageFrames int    // Nombre de frames pendant lesquelles le message est affiché
 }

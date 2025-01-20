@@ -8,7 +8,7 @@ import (
 // faire attention à l'ordre des initialisations car elles
 // pourraient dépendre les unes des autres.
 func (g *Game) Init() {
-	g.floor.Init()
+	g.floor.Init(&g.tileOverlays)
 
 	g.character.Init(g.floor.GetWidthContent(), g.floor.GetHeightContent())
 	g.camera.Init(g.character.X, g.character.Y)
