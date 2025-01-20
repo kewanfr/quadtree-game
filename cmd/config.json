@@ -12,7 +12,7 @@
 
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
-    "ExtRoundEarth": false,
+    "ExtRoundEarth": true,
 
     "ExtZoom": true,
     "MaxZoom": 16,
