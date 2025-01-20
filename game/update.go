@@ -19,6 +19,10 @@ func (g *Game) Update() error {
 		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 			g.CurrentState = 0
 		}
+	} else {
+		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+			g.CurrentState = 1
+		}
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyD) {
