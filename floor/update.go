@@ -19,14 +19,14 @@ func (f *Floor) Update(camXPos, camYPos int) {
 
 	//on vérifie si l'utilisateur veut zoomer ou dézoomer avant tout autre calcul pour éviter des problèmes
 	if configuration.Global.ExtZoom {
-		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
 			configuration.Global.NumTileX++
 			configuration.Global.NumTileY++
 
 			f.updateZoom()
 		}
 
-		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
 			configuration.Global.NumTileX--
 			configuration.Global.NumTileY--
 
