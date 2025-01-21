@@ -35,23 +35,23 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 /*
 *
 
-	  	makeNode est une fonction récursive qui construit un nœud du quadtree.
+	makeNode est une fonction récursive qui construit un nœud du quadtree.
 
-		Elle prend en entrée un tableau représentant le contenu du terrain,
-		les coordonnées du coin supérieur gauche de la zone à représenter,
-		ainsi que sa largeur et sa hauteur.
+	Elle prend en entrée un tableau représentant le contenu du terrain,
+	les coordonnées du coin supérieur gauche de la zone à représenter,
+	ainsi que sa largeur et sa hauteur.
 
-		Elle s'arrête lorsqu'un node a pour dimension 1x1 ou contient une valeur à 0 dans ses dimensions.
+	Elle s'arrête lorsqu'un node a pour dimension 1x1 ou contient une valeur à 0 dans ses dimensions.
 
-		Paramètres :
-		- floorContent : [][]int - Le contenu du terrain, représenté par un tableau 2D d'entiers.
-		- startX : int - La coordonnée X du coin supérieur gauche de la zone à représenter.
-		- startY : int - La coordonnée Y du coin supérieur gauche de la zone à représenter.
-		- width : int - La largeur de la zone à représenter.
-		- eight : int - La hauteur de la zone à représenter.
+	Paramètres :
+	- floorContent : [][]int - Le contenu du terrain, représenté par un tableau 2D d'entiers.
+	- startX : int - La coordonnée X du coin supérieur gauche de la zone à représenter.
+	- startY : int - La coordonnée Y du coin supérieur gauche de la zone à représenter.
+	- width : int - La largeur de la zone à représenter.
+	- eight : int - La hauteur de la zone à représenter.
 
-		Sortie :
-		- *node : Un pointeur vers le nœud du quadtree créé.
+	Sortie :
+	- *node : Un pointeur vers le nœud du quadtree créé.
 
 *
 */

@@ -4,6 +4,16 @@ Projet de SAÉ Initiation au développement (R1.01) et de SA2 implémentation d'
 
 BERNIER Kéwan et GALLY Chianti
 
+## Activation des extensions
+
+Pour activer les extensions, il suffit de les activer dans le fichier de configuration [cmd/config.json](cmd/config.json) en mettant à `true` les extensions que vous souhaitez activer.
+Certaines extensions on des paramètres supplémentaires qui peuvent être modifiés dans le fichier de configuration.
+
+## Compilation
+
+Pour compiler le projet, il suffit de lancer la commande `go build` dans le dossier `cmd` du projet.
+Faites attention à lancer la commande correctement ou il risque de ne pas trouver le fichier de configuration.
+
 ## Répartition des tâches
 
 ### Kéwan BERNIER
@@ -25,4 +35,5 @@ BERNIER Kéwan et GALLY Chianti
 - [X] Extension 6.10 Particules ([paquet particles](/particles), [game/update.go](./game/update.go), [game/draw.go](./game/draw.go), [character/update.go](./character/update.go))
 - [X] Extension 6.12 Zoom (fichiers: ([game/update.go](./game/update.go))
 - [X] Extension 6.3 Animation des décors (implémentation des surcouches pour des fleurs, buisson, etc.) (fichiers: [floor/init.go](./floor/init.go), [paquet flooroverlay](./flooroverlay))
-- [X] Extension Bonus : Menu de démarrage (fichiers: [cmd/main.go](./cmd/main.go), [game/game.go](./game/game.go), [game/update.go](./game/update.go), [game/draw.go](./game/draw.go), [game/draw.go](./game/draw.go))
+
+- [X] Extension Bonus : Menu de démarrage (fichiers: [cmd/main.go](./cmd/main.go), [game/game.go](./game/game.go), [game/update.go](./game/update.go), [game/draw.go](./game/draw.go))

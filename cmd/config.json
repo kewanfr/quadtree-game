@@ -1,5 +1,5 @@
 {
-    "DebugMode": false,
+    "DebugMode": true,
     "NumTileX": 9,
     "NumTileY": 9,
     "TileSize": 16,
@@ -12,7 +12,7 @@
 
     "ExtSmoothTerrain": false,
     "ExtParticles": true,
-    "ExtRoundEarth": false,
+    "ExtRoundEarth": true,
 
     "ExtZoom": true,
     "MaxZoom": 16,

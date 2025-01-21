@@ -17,6 +17,24 @@ func (f *Floor) Update(camXPos, camYPos int) {
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
 
+	//on vérifie si l'utilisateur veut zoomer ou dézoomer avant tout autre calcul pour éviter des problèmes
+	if configuration.Global.ExtZoom {
+		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
+			configuration.Global.NumTileX++
+			configuration.Global.NumTileY++
+
+			f.updateZoom()
+		}
+
+		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
+			configuration.Global.NumTileX--
+			configuration.Global.NumTileY--
+
+			f.updateZoom()
+		}
+
+	}
+
 	switch configuration.Global.FloorKind {
 	case GridFloor:
 		f.updateGridFloor(topLeftX, topLeftY)
@@ -41,34 +59,19 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		}
 	}
 
-	if configuration.Global.ExtZoom {
-		if inpututil.IsKeyJustPressed(ebiten.KeyEqual) && ((configuration.Global.NumTileX < configuration.Global.MaxZoom) || (configuration.Global.NumTileY < configuration.Global.MaxZoom)) {
-			configuration.Global.NumTileX += 1
-			configuration.Global.NumTileY += 1
+}
 
-			configuration.SetComputedFields()
+func (f *Floor) updateZoom() {
+	configuration.Global.ScreenCenterTileX /= 2
+	configuration.Global.ScreenCenterTileY /= 2
 
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
-		}
+	configuration.SetComputedFields() // update l'ui
 
-		//hard limit à 6 pour éviter tout problème avec blocking.go
-		if inpututil.IsKeyJustPressed(ebiten.KeyMinus) && (!(configuration.Global.NumTileX <= configuration.Global.MinZoom) || !(configuration.Global.NumTileY <= configuration.Global.MinZoom)) {
-			configuration.Global.NumTileX -= 1
-			configuration.Global.NumTileY -= 1
-
-			configuration.SetComputedFields() // update l'ui
-
-			f.content = make([][]int, configuration.Global.NumTileY)
-			for y := 0; y < len(f.content); y++ {
-				f.content[y] = make([]int, configuration.Global.NumTileX)
-			}
-		}
-
+	// on recrée le tableau de sol
+	f.content = make([][]int, configuration.Global.NumTileY)
+	for y := 0; y < len(f.content); y++ {
+		f.content[y] = make([]int, configuration.Global.NumTileX)
 	}
-
 }
 
 // le sol est un quadrillage de tuiles d'herbe et de tuiles de désert

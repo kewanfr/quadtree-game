@@ -9,6 +9,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+// Draw dessine les overlay sur l'écran
 func (p TileOverlay) Draw(screen *ebiten.Image, camX, camY int) {
 	// Calcule la position de l'animation sur le terrain
 	xTileForDisplay := p.X - camX + configuration.Global.ScreenCenterTileX
@@ -22,6 +23,7 @@ func (p TileOverlay) Draw(screen *ebiten.Image, camX, camY int) {
 
 	shiftX := p.AnimationStep * configuration.Global.TileSize
 
+	// On récupère l'image correspondant au type de l'overlay
 	var img *ebiten.Image
 	switch p.Type {
 	case 1:
@@ -29,7 +31,8 @@ func (p TileOverlay) Draw(screen *ebiten.Image, camX, camY int) {
 	case 2:
 		img = assets.BuissonImage
 	}
+
 	screen.DrawImage(img.SubImage(
-		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize),
+		image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize).Bounds(),
 	).(*ebiten.Image), op)
 }

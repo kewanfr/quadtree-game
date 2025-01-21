@@ -31,5 +31,5 @@ type Game struct {
 
 	message       string // Message à afficher
 	messageFrames int    // Nombre de frames pendant lesquelles le message est affiché
-	CurrentState  int    // Menu/State à afficher (0 : Jeu, 1 : Menu Principal, 2: Menu Pause)
+	CurrentState  int    // Menu/State à afficher (0 : Jeu, 1 : Menu Principal)
 }
